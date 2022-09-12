@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-import { Validator } from "../helpers/Validator"
+import { Validator } from '../helpers/Validator.js'
 
 const validator = new Validator()
 
@@ -26,10 +26,10 @@ export class Stats {
    */
   constructor (listOfData) {
     if (!validator.isAllNumbersOrObjectsWithValueProperty(listOfData)) {
-      throw new TypeError('Expected argument to be an array of objects with value-property or an array of numbers.')
+      throw new TypeError('Expected argument to be an array of objects with value-property holding a number or an array of numbers.')
     }
 
-    this.#collectionOfData = [ ...collectionOfData ]
+    this.#collectionOfData = [ ...listOfData ]
   }
 
   /**
@@ -44,6 +44,7 @@ export class Stats {
     for (const data of this.#collectionOfData) {
       const dataObject = this.#convertToObjectWithPercentProperty(data)
       dataObject.percent = (dataObject.value / sumOfCollection)
+      percentCollection.push(dataObject)
     }
 
     return percentCollection
@@ -57,7 +58,7 @@ export class Stats {
    */
   #convertToObjectWithPercentProperty (data) {
     let dataObjectWithPercentProperty
-    if (this.#isObjectWithValueProperty(data)) {
+    if (validator.isObjectWithNumberInValueProperty(data)) {
       dataObjectWithPercentProperty = { ...data, percent: undefined }
     } else {
       dataObjectWithPercentProperty = { value: data, percent: undefined }
@@ -72,8 +73,8 @@ export class Stats {
    * @returns {number} - The sum of the values in the collectionOfData-field.
    */
   #getSumOfCollectionOfData () {
-    const sum = this.#collectionOfData.reduce(previousData, currentData => {
-      if (this.#isObjectWithValueProperty(currentData)) {
+    const sum = this.#collectionOfData.reduce((previousData, currentData) => {
+      if (validator.isObjectWithNumberInValueProperty(currentData)) {
         return previousData + currentData.value
       } else {
         return previousData + currentData

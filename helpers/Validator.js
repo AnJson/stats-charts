@@ -16,8 +16,8 @@ export class Validator {
    * @param {any} data - Data to verify as object with value-property.
    * @returns {boolean}
    */
-  isObjectWithValueProperty (data) {
-    return (typeof data === 'object' && data.isArray()) && Object.keys(data).includes('value')
+  isObjectWithNumberInValueProperty (data) {
+    return (typeof data === 'object' && !Array.isArray(data)) && (Object.keys(data).includes('value') && this.isNumber(data.value))
   }
 
   /**
@@ -33,10 +33,10 @@ export class Validator {
   /**
    * Check if all data in an array is an object with value-property or if all data in the array are numbers.
    * 
-   * @param {any[]} data - Data to verify as object with value-property.
+   * @param {any[]} datalist - Datalist to verify as an array of objects with value-property or as an array of numbers.
    * @returns {boolean}
    */
-   isAllNumbersOrObjectsWithValueProperty (data) {
-    return data.isArray() && (collectionOfData.every(data => validator.isObjectWithValueProperty(data)) || collectionOfData.every(data => validator.isNumber(data)))
+   isAllNumbersOrObjectsWithValueProperty (datalist) {
+    return Array.isArray(datalist) && (datalist.every(data => this.isObjectWithNumberInValueProperty(data)) || datalist.every(data => this.isNumber(data)))
   }
 }
