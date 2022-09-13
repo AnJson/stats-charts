@@ -33,6 +33,21 @@ export class Stats {
   }
 
   /**
+   * Calculate the averege-value from the collection of data.
+   *
+   * @returns {number} - The calculated averege value.
+   */
+  getAveregeValue () {
+    let sum = 0
+
+    for (const data of this.#collectionOfData) {
+      sum += this.#getValue(data)
+    }
+
+    return (sum / this.#collectionOfData.length)
+  }
+
+  /**
    * Get a copy of the collectionOfData-field converted to objects with percent-property.
    *
    * @returns {object[]} - Data from collectionOfData-field converted to objects with percent-property.
@@ -73,14 +88,26 @@ export class Stats {
    * @returns {number} - The sum of the values in the collectionOfData-field.
    */
   #getSumOfCollectionOfData () {
-    const sum = this.#collectionOfData.reduce((previousData, currentData) => {
-      if (validator.isObjectWithNumberInValueProperty(currentData)) {
-        return previousData + currentData.value
-      } else {
-        return previousData + currentData
-      }
-    }, 0)
-
+    const sum = this.#collectionOfData.reduce((previousData, currentData) => previousData + this.#getValue(currentData), 0)
+    // TODO: Remember to reflect this refactoring to implement DRY.
     return sum
+  }
+
+  /**
+   * Get a single value from the collectionOfData-field even if it is an object or a number.
+   *
+   * @param {object | number} - Data from the collectionOfData-field to get the value from.
+   * @returns {number} - The sum of the values in the collectionOfData-field.
+   */
+  #getValue (data) {
+    let value
+
+    if (validator.isObjectWithNumberInValueProperty(data)) {
+      value = data.value
+    } else {
+      value = data
+    }
+
+    return value
   }
 }

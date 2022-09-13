@@ -8,7 +8,10 @@ try {
   const statsObject2 = new Stats(data2)
   
   console.log(statsObject1.getCollectionOfDataWithPercent())
+  console.log(statsObject1.getAveregeValue())
+  console.log('---------------------------------------------------')
   console.log(statsObject2.getCollectionOfDataWithPercent())
+  console.log(statsObject2.getAveregeValue())
 } catch (error) {
   console.error(error)
 }
