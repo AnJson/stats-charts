@@ -1,13 +1,11 @@
 /**
  * The StatsCollection class.
- * 
+ *
  * @author Anders Jonsson
  * @version 1.0.0
  */
 
 import { Validator } from '../helpers/Validator.js'
-
-const validator = new Validator()
 
 /**
  * Wrapper class for stats-methods.
@@ -16,7 +14,15 @@ const validator = new Validator()
  * @class StatsCollection
  */
 export class StatsCollection {
+  /**
+   * @type {number[] | object[]}
+   */
   #collectionOfData = []
+
+  /**
+   * @type {Validator}
+   */
+  #validator = new Validator()
 
   /**
    * The constructor of the class.
@@ -24,12 +30,14 @@ export class StatsCollection {
    * @param {number[] | object[]} listOfData - The list of data to get stats from.
    * @throws {TypeError} - If argument is not an array of objects with value-property or an array of numbers.
    */
-  constructor (listOfData) {
-    if (!validator.isValidStatsArray(listOfData)) {
-      throw new TypeError('Expected argument to be an array of objects with value-property holding a number or an array of numbers.')
+  constructor(listOfData) {
+    if (!this.#validator.isValidStatsArray(listOfData)) {
+      throw new TypeError(
+        'Expected argument to be an array of objects with value-property holding a number or an array of numbers.'
+      )
     }
 
-    this.#collectionOfData = [ ...listOfData ]
+    this.#collectionOfData = [...listOfData]
   }
 
   /**
@@ -37,15 +45,22 @@ export class StatsCollection {
    *
    * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the highest value.
    */
-  getDataWithMaximumValues () {
+  getDataWithMaximumValues() {
     /**
      * Reducing the array in collectionOfData-field to get the maximum value.
      *
      * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
      */
-    const maximumValue = this.#collectionOfData.reduce((previousData, currentData) => this.#getValue(previousData) > this.#getValue(currentData) ? this.#getValue(previousData) : this.#getValue(currentData))
+    const maximumValue = this.#collectionOfData.reduce(
+      (previousData, currentData) =>
+        this.#getValue(previousData) > this.#getValue(currentData)
+          ? this.#getValue(previousData)
+          : this.#getValue(currentData)
+    )
 
-    return this.#collectionOfData.filter(data => this.#getValue(data) === maximumValue)
+    return this.#collectionOfData.filter(
+      (data) => this.#getValue(data) === maximumValue
+    )
   }
 
   /**
@@ -53,15 +68,22 @@ export class StatsCollection {
    *
    * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the lowest value.
    */
-   getDataWithMinimumValues () {
+  getDataWithMinimumValues() {
     /**
      * Reducing the array in collectionOfData-field to get the minimum value.
      *
      * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
      */
-    const minimumValue = this.#collectionOfData.reduce((previousData, currentData) => this.#getValue(previousData) < this.#getValue(currentData) ? this.#getValue(previousData) : this.#getValue(currentData))
+    const minimumValue = this.#collectionOfData.reduce(
+      (previousData, currentData) =>
+        this.#getValue(previousData) < this.#getValue(currentData)
+          ? this.#getValue(previousData)
+          : this.#getValue(currentData)
+    )
 
-    return this.#collectionOfData.filter(data => this.#getValue(data) === minimumValue)
+    return this.#collectionOfData.filter(
+      (data) => this.#getValue(data) === minimumValue
+    )
   }
 
   /**
@@ -69,14 +91,14 @@ export class StatsCollection {
    *
    * @returns {number} - The calculated averege value.
    */
-  getAveregeValue () {
+  getAveregeValue() {
     let sum = 0
 
     for (const data of this.#collectionOfData) {
       sum += this.#getValue(data)
     }
 
-    return (sum / this.#collectionOfData.length)
+    return sum / this.#collectionOfData.length
   }
 
   /**
@@ -84,13 +106,13 @@ export class StatsCollection {
    *
    * @returns {object[]} - Data from collectionOfData-field converted to objects with percent-property.
    */
-  getCollectionOfDataWithPercent () {
+  getCollectionOfDataWithPercent() {
     const percentCollection = []
     const sumOfCollection = this.#getSumOfCollectionOfData()
 
     for (const data of this.#collectionOfData) {
       const dataObject = this.#convertToObjectWithPercentProperty(data)
-      dataObject.percent = (dataObject.value / sumOfCollection)
+      dataObject.percent = dataObject.value / sumOfCollection
       percentCollection.push(dataObject)
     }
 
@@ -103,9 +125,9 @@ export class StatsCollection {
    * @param {object | number} data - Single data from collectionOfData-field.
    * @returns {object} - Object with at least a value- and percent-property.
    */
-  #convertToObjectWithPercentProperty (data) {
+  #convertToObjectWithPercentProperty(data) {
     let dataObjectWithPercentProperty
-    if (validator.isObjectWithNumberInValueProperty(data)) {
+    if (this.#validator.isObjectWithNumberInValueProperty(data)) {
       dataObjectWithPercentProperty = { ...data, percent: undefined }
     } else {
       dataObjectWithPercentProperty = { value: data, percent: undefined }
@@ -119,13 +141,16 @@ export class StatsCollection {
    *
    * @returns {number} - The sum of the values in the collectionOfData-field.
    */
-  #getSumOfCollectionOfData () {
+  #getSumOfCollectionOfData() {
     /**
      * Reducing the array in collectionOfData-field to get the total sum of the values.
      *
      * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
      */
-    const sum = this.#collectionOfData.reduce((previousData, currentData) => previousData + this.#getValue(currentData), 0)
+    const sum = this.#collectionOfData.reduce(
+      (previousData, currentData) => previousData + this.#getValue(currentData),
+      0
+    )
 
     return sum
   }
@@ -136,10 +161,10 @@ export class StatsCollection {
    * @param {object | number} - Data from the collectionOfData-field to get the value from.
    * @returns {number} - The sum of the values in the collectionOfData-field.
    */
-  #getValue (data) {
+  #getValue(data) {
     let value
 
-    if (validator.isObjectWithNumberInValueProperty(data)) {
+    if (this.#validator.isObjectWithNumberInValueProperty(data)) {
       value = data.value
     } else {
       value = data
