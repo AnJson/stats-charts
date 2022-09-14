@@ -33,12 +33,24 @@ export class Stats {
   }
 
   /**
+   * Get the array of data that has the highest value in the collectionOfData-field.
+   *
+   * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the highest value.
+   */
+  getDataWithMaximumValues () {
+    // TODO: Remember to reflect this to implement DRY.
+    const maximumValue = this.#collectionOfData.reduce((acc, current) => acc > this.#getValue(current) ? acc : this.#getValue(current))
+    return this.#collectionOfData.filter(data => this.#getValue(data) === maximumValue)
+  }
+
+  /**
    * Calculate the averege-value from the collection of data.
    *
    * @returns {number} - The calculated averege value.
    */
   getAveregeValue () {
     let sum = 0
+    // TODO: Remember to reflect this to implement DRY.
 
     for (const data of this.#collectionOfData) {
       sum += this.#getValue(data)
