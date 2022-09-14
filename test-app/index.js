@@ -8,12 +8,21 @@ try {
   const statsObject2 = new Stats(data2)
   
   console.log(statsObject1.getCollectionOfDataWithPercent())
+  console.log('----------------- Averege ------------------------')
   console.log(statsObject1.getAveregeValue())
+  console.log('----------------- Maximum ------------------------')
   console.log(statsObject1.getDataWithMaximumValues())
+  console.log('----------------- Minimum ------------------------')
+  console.log(statsObject1.getDataWithMinimumValues())
+  console.log('---------------------------------------------------')
   console.log('---------------------------------------------------')
   console.log(statsObject2.getCollectionOfDataWithPercent())
+  console.log('----------------- Averege ------------------------')
   console.log(statsObject2.getAveregeValue())
+  console.log('----------------- Maximum ------------------------')
   console.log(statsObject2.getDataWithMaximumValues())
+  console.log('----------------- Minimum ------------------------')
+  console.log(statsObject2.getDataWithMinimumValues())
 } catch (error) {
   console.error(error)
 }

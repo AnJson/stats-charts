@@ -38,9 +38,30 @@ export class Stats {
    * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the highest value.
    */
   getDataWithMaximumValues () {
-    // TODO: Remember to reflect this to implement DRY.
-    const maximumValue = this.#collectionOfData.reduce((acc, current) => acc > this.#getValue(current) ? acc : this.#getValue(current))
+    /**
+     * Reducing the array in collectionOfData-field to get the maximum value.
+     *
+     * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
+     */
+    const maximumValue = this.#collectionOfData.reduce((previousData, currentData) => this.#getValue(previousData) > this.#getValue(currentData) ? this.#getValue(previousData) : this.#getValue(currentData))
+
     return this.#collectionOfData.filter(data => this.#getValue(data) === maximumValue)
+  }
+
+  /**
+   * Get the array of data that has the lowest value in the collectionOfData-field.
+   *
+   * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the lowest value.
+   */
+   getDataWithMinimumValues () {
+    /**
+     * Reducing the array in collectionOfData-field to get the minimum value.
+     *
+     * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
+     */
+    const minimumValue = this.#collectionOfData.reduce((previousData, currentData) => this.#getValue(previousData) < this.#getValue(currentData) ? this.#getValue(previousData) : this.#getValue(currentData))
+
+    return this.#collectionOfData.filter(data => this.#getValue(data) === minimumValue)
   }
 
   /**
@@ -50,7 +71,6 @@ export class Stats {
    */
   getAveregeValue () {
     let sum = 0
-    // TODO: Remember to reflect this to implement DRY.
 
     for (const data of this.#collectionOfData) {
       sum += this.#getValue(data)
@@ -100,8 +120,13 @@ export class Stats {
    * @returns {number} - The sum of the values in the collectionOfData-field.
    */
   #getSumOfCollectionOfData () {
+    /**
+     * Reducing the array in collectionOfData-field to get the total sum of the values.
+     *
+     * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
+     */
     const sum = this.#collectionOfData.reduce((previousData, currentData) => previousData + this.#getValue(currentData), 0)
-    // TODO: Remember to reflect this refactoring to implement DRY.
+
     return sum
   }
 
