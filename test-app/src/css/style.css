@@ -1,0 +1,35 @@
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  padding: 0;
+}
+
+body {
+  box-sizing: border-box;
+  background-color: rgb(252, 239, 239);
+}
+
+.header {
+  height: 80px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.chart-container {
+  width: 40%;
+}
+
+@media screen and (max-width: 800px) {
+  .chart-container {
+    width: 80%;
+  }  
+}
