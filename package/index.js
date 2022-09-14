@@ -1,4 +1,6 @@
-import { StatsCollection } from '../stats/StatsCollection.js'
+// TODO: Make this the entry-point for npm.
+
+import { StatsCollection } from './stats/StatsCollection.js'
 
 try {
   const data1 = [255, 13, 25, 255, 18, 1, -1]
