@@ -36,7 +36,7 @@ export class Validator {
    * @param {any[]} datalist - Datalist to verify as an array of objects with value-property or as an array of numbers.
    * @returns {boolean}
    */
-   isAllNumbersOrObjectsWithValueProperty (datalist) {
+   isValidStatsArray (datalist) {
     return Array.isArray(datalist) && (datalist.every(data => this.isObjectWithNumberInValueProperty(data)) || datalist.every(data => this.isNumber(data)))
   }
 }

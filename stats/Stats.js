@@ -25,11 +25,58 @@ export class Stats {
    * @throws {TypeError} - If argument is not an array of objects with value-property or an array of numbers.
    */
   constructor (listOfData) {
-    if (!validator.isAllNumbersOrObjectsWithValueProperty(listOfData)) {
+    if (!validator.isValidStatsArray(listOfData)) {
       throw new TypeError('Expected argument to be an array of objects with value-property holding a number or an array of numbers.')
     }
 
     this.#collectionOfData = [ ...listOfData ]
+  }
+
+  /**
+   * Get the array of data that has the highest value in the collectionOfData-field.
+   *
+   * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the highest value.
+   */
+  getDataWithMaximumValues () {
+    /**
+     * Reducing the array in collectionOfData-field to get the maximum value.
+     *
+     * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
+     */
+    const maximumValue = this.#collectionOfData.reduce((previousData, currentData) => this.#getValue(previousData) > this.#getValue(currentData) ? this.#getValue(previousData) : this.#getValue(currentData))
+
+    return this.#collectionOfData.filter(data => this.#getValue(data) === maximumValue)
+  }
+
+  /**
+   * Get the array of data that has the lowest value in the collectionOfData-field.
+   *
+   * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the lowest value.
+   */
+   getDataWithMinimumValues () {
+    /**
+     * Reducing the array in collectionOfData-field to get the minimum value.
+     *
+     * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
+     */
+    const minimumValue = this.#collectionOfData.reduce((previousData, currentData) => this.#getValue(previousData) < this.#getValue(currentData) ? this.#getValue(previousData) : this.#getValue(currentData))
+
+    return this.#collectionOfData.filter(data => this.#getValue(data) === minimumValue)
+  }
+
+  /**
+   * Calculate the averege-value from the collection of data.
+   *
+   * @returns {number} - The calculated averege value.
+   */
+  getAveregeValue () {
+    let sum = 0
+
+    for (const data of this.#collectionOfData) {
+      sum += this.#getValue(data)
+    }
+
+    return (sum / this.#collectionOfData.length)
   }
 
   /**
@@ -73,14 +120,31 @@ export class Stats {
    * @returns {number} - The sum of the values in the collectionOfData-field.
    */
   #getSumOfCollectionOfData () {
-    const sum = this.#collectionOfData.reduce((previousData, currentData) => {
-      if (validator.isObjectWithNumberInValueProperty(currentData)) {
-        return previousData + currentData.value
-      } else {
-        return previousData + currentData
-      }
-    }, 0)
+    /**
+     * Reducing the array in collectionOfData-field to get the total sum of the values.
+     *
+     * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
+     */
+    const sum = this.#collectionOfData.reduce((previousData, currentData) => previousData + this.#getValue(currentData), 0)
 
     return sum
+  }
+
+  /**
+   * Get a single value from the collectionOfData-field even if it is an object or a number.
+   *
+   * @param {object | number} - Data from the collectionOfData-field to get the value from.
+   * @returns {number} - The sum of the values in the collectionOfData-field.
+   */
+  #getValue (data) {
+    let value
+
+    if (validator.isObjectWithNumberInValueProperty(data)) {
+      value = data.value
+    } else {
+      value = data
+    }
+
+    return value
   }
 }
