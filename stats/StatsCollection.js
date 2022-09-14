@@ -1,5 +1,5 @@
 /**
- * The Stats class.
+ * The StatsCollection class.
  * 
  * @author Anders Jonsson
  * @version 1.0.0
@@ -13,9 +13,9 @@ const validator = new Validator()
  * Wrapper class for stats-methods.
  *
  * @export
- * @class Stats
+ * @class StatsCollection
  */
-export class Stats {
+export class StatsCollection {
   #collectionOfData = []
 
   /**
