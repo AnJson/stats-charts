@@ -25,7 +25,7 @@ export class Stats {
    * @throws {TypeError} - If argument is not an array of objects with value-property or an array of numbers.
    */
   constructor (listOfData) {
-    if (!validator.isAllNumbersOrObjectsWithValueProperty(listOfData)) {
+    if (!validator.isValidStatsArray(listOfData)) {
       throw new TypeError('Expected argument to be an array of objects with value-property holding a number or an array of numbers.')
     }
 
