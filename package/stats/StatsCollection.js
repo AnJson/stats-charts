@@ -27,9 +27,33 @@ export class StatsCollection {
    * The constructor of the class.
    *
    * @param {number[] | object[]} listOfData - The list of data to get stats from.
-   * @throws {TypeError} - If argument is not an array of objects with value-property or an array of numbers.
    */
   constructor (listOfData) {
+    this.collectionOfData = listOfData
+  }
+
+  /**
+   * Get a copy of the collectionOfData.
+   *
+   * @readonly
+   * @returns {number[] | object[]} - Copy of the collectionOfData-field.
+   */
+  get collectionOfData () {
+    const collectionOfDataCopy = []
+
+    for (const data of this.#collectionOfData) {
+      collectionOfDataCopy.push(this.#copyData(data))
+    }
+
+    return collectionOfDataCopy
+  }
+
+  /**
+   * Set the collectionOfData-field.
+   *
+   * @throws {TypeError} - If argument is not an array of objects with value-property or an array of numbers.
+   */
+  set collectionOfData (listOfData) {
     if (!this.#validator.isValidStatsArray(listOfData)) {
       throw new TypeError(
         'Expected argument to be an array of objects with value-property holding a number or an array of numbers.'
@@ -116,6 +140,24 @@ export class StatsCollection {
     }
 
     return percentCollection
+  }
+
+  /**
+   * Get a copy from single data in the collectionOfData-field.
+   *
+   * @param {number | object} data - Data to copy from the collectionOfData-field.
+   * @returns {number | object} - A copy of the data in collectionOfData-field.
+   */
+  #copyData (data) {
+    let dataCopy
+
+    if (this.#validator.isObjectWithNumberInValueProperty(data)) {
+      dataCopy = { ...data }
+    } else {
+      dataCopy = data
+    }
+
+    return dataCopy
   }
 
   /**

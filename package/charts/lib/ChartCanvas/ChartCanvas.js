@@ -22,11 +22,11 @@ template.innerHTML = `
       aspect-ratio: 16 / 9;
     }
   </style>
-  <canvas id="canvas" height="200px"></canvas>
+  <canvas id="canvas"></canvas>
 `
 
 customElements.define(
-  'anjson-circle-chart',
+  'anjson-chart-canvas',
   /**
    * Class to define custom element.
    *
@@ -62,33 +62,13 @@ customElements.define(
     }
 
     /**
-     * Set up elements-field to contain elements available to draw on canvas.
+     * NOTE: ...
      *
+     * @param {number[] | object[]} dataCollection - Collection of data from StatsCollection.
      */
-    connectedCallback () {}
-
-    /**
-     * Attribute-names to observe and react on.
-     *
-     * @readonly
-     * @static
-     * @returns {string[]} - Array of attribute-names.
-     */
-    static get observedAttributes () {
-      return ['type']
-    }
-
-    /**
-     * React on changed attribute.
-     *
-     * @param {string} name - Name of attribute.
-     * @param {string} oldVal - Attribute-value before change.
-     * @param {string} newVal - Attribute-value after change.
-     */
-    attributeChangedCallback (name, oldVal, newVal) {
-      if (oldVal !== newVal) {
-        // NOTE: Type-attribute has changed.
-      }
+    drawPieChart (dataCollection) {
+      // TODO: Implement this.
+      console.log(dataCollection)
     }
 
     /**
