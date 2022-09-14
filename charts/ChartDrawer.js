@@ -10,7 +10,6 @@ import { StatsCollection } from '../stats/StatsCollection.js'
 /**
  * Wrapper class for chart-drawing methods.
  *
- * @export
  * @class ChartDrawer
  */
 export class ChartDrawer {
@@ -30,7 +29,7 @@ export class ChartDrawer {
    * @param {number[] | object[]} listOfData - The list of data to draw charts from.
    * @throws {TypeError} - If argument is not an array of objects with value-property holding a number or an array of numbers.
    */
-  constructor(listOfData) {
+  constructor (listOfData) {
     this.#collectionOfData = new StatsCollection(listOfData)
   }
 
@@ -41,8 +40,9 @@ export class ChartDrawer {
    * @param {object} options - Options for the chart-drawing.
    * @throws {TypeError} - If options-argument is not an object.
    */
-  drawCircleChart(elementId, options = {}) {
+  drawCircleChart (elementId, options = {}) {
     const optionsObject = this.#populateOptionsObject(options)
+    console.log(optionsObject) // NOTE: Remove.
   }
 
   /**
@@ -58,7 +58,7 @@ export class ChartDrawer {
     return {
       title: (options.title !== undefined) && (typeof options.title === 'boolean') ? options.title : false,
       averege: (options.averege !== undefined) && (typeof options.averege === 'boolean') ? options.averege : false,
-      percent: (options.percent !== undefined) && (typeof options.percent === 'boolean') ? options.percent : false,
+      percent: (options.percent !== undefined) && (typeof options.percent === 'boolean') ? options.percent : false
     }
   }
 }

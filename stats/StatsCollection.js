@@ -10,7 +10,6 @@ import { Validator } from '../helpers/Validator.js'
 /**
  * Wrapper class for stats-methods.
  *
- * @export
  * @class StatsCollection
  */
 export class StatsCollection {
@@ -30,7 +29,7 @@ export class StatsCollection {
    * @param {number[] | object[]} listOfData - The list of data to get stats from.
    * @throws {TypeError} - If argument is not an array of objects with value-property or an array of numbers.
    */
-  constructor(listOfData) {
+  constructor (listOfData) {
     if (!this.#validator.isValidStatsArray(listOfData)) {
       throw new TypeError(
         'Expected argument to be an array of objects with value-property holding a number or an array of numbers.'
@@ -45,7 +44,7 @@ export class StatsCollection {
    *
    * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the highest value.
    */
-  getDataWithMaximumValues() {
+  getDataWithMaximumValues () {
     /**
      * Reducing the array in collectionOfData-field to get the maximum value.
      *
@@ -68,7 +67,7 @@ export class StatsCollection {
    *
    * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the lowest value.
    */
-  getDataWithMinimumValues() {
+  getDataWithMinimumValues () {
     /**
      * Reducing the array in collectionOfData-field to get the minimum value.
      *
@@ -91,7 +90,7 @@ export class StatsCollection {
    *
    * @returns {number} - The calculated averege value.
    */
-  getAveregeValue() {
+  getAveregeValue () {
     let sum = 0
 
     for (const data of this.#collectionOfData) {
@@ -106,7 +105,7 @@ export class StatsCollection {
    *
    * @returns {object[]} - Data from collectionOfData-field converted to objects with percent-property.
    */
-  getCollectionOfDataWithPercent() {
+  getCollectionOfDataWithPercent () {
     const percentCollection = []
     const sumOfCollection = this.#getSumOfCollectionOfData()
 
@@ -125,7 +124,7 @@ export class StatsCollection {
    * @param {object | number} data - Single data from collectionOfData-field.
    * @returns {object} - Object with at least a value- and percent-property.
    */
-  #convertToObjectWithPercentProperty(data) {
+  #convertToObjectWithPercentProperty (data) {
     let dataObjectWithPercentProperty
     if (this.#validator.isObjectWithNumberInValueProperty(data)) {
       dataObjectWithPercentProperty = { ...data, percent: undefined }
@@ -141,7 +140,7 @@ export class StatsCollection {
    *
    * @returns {number} - The sum of the values in the collectionOfData-field.
    */
-  #getSumOfCollectionOfData() {
+  #getSumOfCollectionOfData () {
     /**
      * Reducing the array in collectionOfData-field to get the total sum of the values.
      *
@@ -158,10 +157,10 @@ export class StatsCollection {
   /**
    * Get a single value from the collectionOfData-field even if it is an object or a number.
    *
-   * @param {object | number} - Data from the collectionOfData-field to get the value from.
+   * @param {object | number} data - Data from the collectionOfData-field to get the value from.
    * @returns {number} - The sum of the values in the collectionOfData-field.
    */
-  #getValue(data) {
+  #getValue (data) {
     let value
 
     if (this.#validator.isObjectWithNumberInValueProperty(data)) {

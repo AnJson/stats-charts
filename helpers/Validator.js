@@ -14,9 +14,9 @@ export class Validator {
    * Check if data is an object with value-property.
    *
    * @param {any} data - Data to verify as object with value-property.
-   * @returns {boolean}
+   * @returns {boolean} - Is data a valid object.
    */
-  isObjectWithNumberInValueProperty(data) {
+  isObjectWithNumberInValueProperty (data) {
     return (
       typeof data === 'object' &&
       !Array.isArray(data) &&
@@ -28,10 +28,10 @@ export class Validator {
   /**
    * Check if data is a number.
    *
-   * @param {any} - Data to verify as number.
-   * @returns {boolean}
+   * @param {any} data - Data to verify as number.
+   * @returns {boolean} - Is data a number.
    */
-  isNumber(data) {
+  isNumber (data) {
     return typeof data === 'number' && !Number.isNaN(data)
   }
 
@@ -39,9 +39,9 @@ export class Validator {
    * Check if all data in an array is an object with value-property or if all data in the array are numbers.
    *
    * @param {any[]} datalist - Datalist to verify as an array of objects with value-property or as an array of numbers.
-   * @returns {boolean}
+   * @returns {boolean} - Is data valid.
    */
-  isValidStatsArray(datalist) {
+  isValidStatsArray (datalist) {
     return (
       Array.isArray(datalist) &&
       (datalist.every((data) => this.isObjectWithNumberInValueProperty(data)) ||
@@ -52,10 +52,10 @@ export class Validator {
   /**
    * Check if data is a object.
    *
-   * @param {any} - Data to verify as object.
-   * @returns {boolean}
+   * @param {any} data - Data to verify as object.
+   * @returns {boolean} - Is data an object.
    */
-  isObject(data) {
+  isObject (data) {
     return typeof data === 'object' && !Array.isArray(data)
   }
 }
