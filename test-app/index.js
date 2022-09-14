@@ -1,3 +1,4 @@
+import { ChartDrawer } from '../charts/ChartDrawer.js'
 import { StatsCollection } from '../stats/StatsCollection.js'
 
 try {
