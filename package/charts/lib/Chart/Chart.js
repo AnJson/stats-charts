@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 import { StatsCollection } from '../../../stats/StatsCollection'
-import '../ChartCanvas/'
+import '../chart-canvas/'
 
 const template = document.createElement('template')
 
@@ -94,7 +94,7 @@ customElements.define(
      */
     createBarChart (statsCollection, options) {
       if (options?.title || options?.percent || options?.value) {
-        this.#appendMetaBar(options)
+        this.#appendMetaBar(statsCollection, options)
       }
 
       this.#canvasElement.drawBarChart(statsCollection, options.averege)
@@ -103,9 +103,10 @@ customElements.define(
     /**
      * Append custom meta-bar element to shadow-dom.
      *
+     * @param {StatsCollection} statsCollection - StatsCollection-object.
      * @param {object} options - Options-object.
      */
-    async #appendMetaBar (options) {
+    async #appendMetaBar (statsCollection, options) {
       const metaBarElement = await this.#createMetaBarElement()
       // TODO: Add data to display based on options.
 
@@ -118,7 +119,7 @@ customElements.define(
      * @returns {HTMLElement} - Custom anjson-meta-bar element.
      */
     async #createMetaBarElement () {
-      await import(/* @vite-ignore */'../MetaBar/')
+      await import(/* @vite-ignore */'../meta-bar')
 
       return document.createElement('anjson-meta-bar')
     }

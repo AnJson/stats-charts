@@ -2,7 +2,7 @@ import { StatsCollection } from '../../../stats/StatsCollection/'
 import { COLORS } from './lib/colors.js'
 
 /**
- * Custom canvas element.
+ * Custom chart-canvas element.
  *
  * @author Anders Jonsson
  * @version 1.0.0

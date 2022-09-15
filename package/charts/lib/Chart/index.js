@@ -1,1 +1,1 @@
-import './Chart.js'
+import './chart.js'

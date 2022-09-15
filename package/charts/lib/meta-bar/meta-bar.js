@@ -1,5 +1,5 @@
 /**
- * Custom chart element.
+ * Custom meta-bar element.
  *
  * @author Anders Jonsson
  * @version 1.0.0
