@@ -17,9 +17,16 @@ template.innerHTML = `
     #container {
       
     }
+
+    #color-box {
+      width: 15px;
+      height: 15px;
+      border-radius: 2px;
+    }
   </style>
   <div id="container">
-    <h1>meta-data</h1>
+    <div id="color-box"></div>
+
   </div>
 `
 
@@ -31,6 +38,13 @@ customElements.define(
    */
   class extends HTMLElement {
     /**
+     * Div element showing the color.
+     *
+     * @type {HTMLElement}
+     */
+    #colorBoxElement
+
+    /**
      * Create instance of class and attach open shadow-dom.
      *
      */
@@ -40,6 +54,8 @@ customElements.define(
       this.attachShadow({ mode: 'open' }).appendChild(
         template.content.cloneNode(true)
       )
+
+      this.#colorBoxElement = this.shadowRoot.querySelector('#color-box')
     }
 
     /**
@@ -48,7 +64,7 @@ customElements.define(
      * @returns {string[]} - Name of attributes to observe.
      */
     static get observedAttributes () {
-      return ['title', 'value', 'percent']
+      return ['color', 'title', 'value', 'percent']
     }
 
     /**
@@ -71,6 +87,10 @@ customElements.define(
      * @param {string} value - The value of the given attribute.
      */
     #triggerCallback (name, value) {
+      if (name === 'color') {
+        this.#colorizeBox(value)
+      }
+
       if (name === 'title') {
         // NOTE: Fix.
         console.log(value)
@@ -85,6 +105,15 @@ customElements.define(
         // NOTE: Fix.
         console.log(value)
       }
+    }
+
+    /**
+     * Set the background-color of the colorbox.
+     *
+     * @param {string} hexColor - Color-code in hexadecimals.
+     */
+    #colorizeBox (hexColor) {
+      this.#colorBoxElement.style.backgroundColor = hexColor
     }
   }
 )
