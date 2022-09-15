@@ -113,10 +113,18 @@ customElements.define(
       // Filling the Rectangle based on the input values
       for (const [index, data] of statsCollection.collectionOfData.entries()) {
         const barHeight = this.offsetHeight * (this.#getValue(data) / statsCollection.getMaximumValue())
-
         this.#ctx.fillStyle = COLORS[index]
         this.#ctx.fillRect(xPosition, (this.offsetHeight - barHeight), barWidth, barHeight)
         xPosition += barWidth + gapWidth
+      }
+
+      if (showAverege) {
+        const yIndexOfAverege = this.offsetHeight - (this.offsetHeight * (statsCollection.getAveregeValue() / statsCollection.getMaximumValue()))
+        this.#ctx.lineWidth = 2
+        this.#ctx.moveTo(0, yIndexOfAverege)
+        this.#ctx.lineTo(this.offsetWidth, yIndexOfAverege)
+        this.#ctx.stroke()
+        // TODO: Add averege-value to canvas.
       }
     }
 
