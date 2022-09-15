@@ -15,7 +15,10 @@ template.innerHTML = `
     }
 
     #container {
-      
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
     }
 
     #color-box {
@@ -23,10 +26,16 @@ template.innerHTML = `
       height: 15px;
       border-radius: 2px;
     }
+
+    .hidden {
+      display: none;
+    }
   </style>
   <div id="container">
-    <div id="color-box"></div>
-
+    <div id="color-box" class="hidden"></div>
+    <div id="title" class="hidden"></div>
+    <div id="value" class="hidden"></div>
+    <div id="percent" class="hidden"></div>
   </div>
 `
 
@@ -45,6 +54,27 @@ customElements.define(
     #colorBoxElement
 
     /**
+     * Div element showing the title.
+     *
+     * @type {HTMLElement}
+     */
+    #titleElement
+
+    /**
+     * Div element showing the value.
+     *
+     * @type {HTMLElement}
+     */
+    #valueElement
+
+    /**
+     * Div element showing the percent.
+     *
+     * @type {HTMLElement}
+     */
+    #percentElement
+
+    /**
      * Create instance of class and attach open shadow-dom.
      *
      */
@@ -56,6 +86,9 @@ customElements.define(
       )
 
       this.#colorBoxElement = this.shadowRoot.querySelector('#color-box')
+      this.#titleElement = this.shadowRoot.querySelector('#title')
+      this.#valueElement = this.shadowRoot.querySelector('#value')
+      this.#percentElement = this.shadowRoot.querySelector('#percent')
     }
 
     /**
@@ -88,32 +121,83 @@ customElements.define(
      */
     #triggerCallback (name, value) {
       if (name === 'color') {
-        this.#colorizeBox(value)
+        this.#handleStateOfColor(value)
       }
 
       if (name === 'title') {
-        // NOTE: Fix.
-        console.log(value)
+        this.#handleStateOfTitle(value)
       }
 
       if (name === 'value') {
-        // NOTE: Fix.
-        console.log(value)
+        this.#handleStateOfValue(value)
       }
 
       if (name === 'percent') {
-        // NOTE: Fix.
-        console.log(value)
+        this.#handleStateOfPercent(value)
       }
     }
 
     /**
-     * Set the background-color of the colorbox.
+     * Handle display of color-box with background-color.
      *
-     * @param {string} hexColor - Color-code in hexadecimals.
+     * @param {string} hexColor - Value from color-attribute.
      */
-    #colorizeBox (hexColor) {
-      this.#colorBoxElement.style.backgroundColor = hexColor
+    #handleStateOfColor (hexColor) {
+      if (this.hasAttribute('color')) {
+        this.#colorBoxElement.classList.remove('hidden')
+        this.#colorBoxElement.style.backgroundColor = hexColor
+      } else {
+        this.#colorBoxElement.classList.add('hidden')
+      }
+    }
+
+    /**
+     * Handle display of title.
+     *
+     * @param {string} title - Value from title-attribute.
+     */
+    #handleStateOfTitle (title) {
+      if (this.hasAttribute('title')) {
+        this.#titleElement.classList.remove('hidden')
+        this.#titleElement.textContent = title
+      } else {
+        this.#titleElement.textContent = ''
+        this.#titleElement.classList.add('hidden')
+      }
+    }
+
+    /**
+     * Handle display of value.
+     *
+     * @param {string} value - Value from value-attribute.
+     */
+    #handleStateOfValue (value) {
+      if (this.hasAttribute('value')) {
+        this.#valueElement.classList.remove('hidden')
+        this.#valueElement.textContent = value
+      } else {
+        this.#valueElement.textContent = ''
+        this.#valueElement.classList.add('hidden')
+      }
+    }
+
+    /**
+     * Handle display of percent.
+     *
+     * @param {string} value - Value from percent-attribute.
+     */
+    #handleStateOfPercent (value) {
+      try {
+        if (this.hasAttribute('percent')) {
+          this.#percentElement.classList.remove('hidden')
+          this.#percentElement.textContent = `(${Number.parseFloat(value * 100).toFixed(1)}%)`
+        } else {
+          this.#percentElement.textContent = ''
+          this.#percentElement.classList.add('hidden')
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 )

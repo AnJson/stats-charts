@@ -8,8 +8,8 @@ try {
   const chartDrawer1 = new ChartDrawer(data2)
   const chartDrawer2 = new ChartDrawer(data4)
 
-  chartDrawer1.appendPieChart('pie-container', { title: true, percent: true })
-  chartDrawer2.appendBarChart('bar-container', { averege: true, title: true })
+  chartDrawer1.appendPieChart('pie-container', { title: true, percent: true, value: true })
+  chartDrawer2.appendBarChart('bar-container', { averege: true, percent: true })
 } catch (error) {
   console.log(error)
 }

@@ -19,8 +19,8 @@ template.innerHTML = `
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      gap: 2em;
-      justify-content: center;
+      gap: 1.5em;
+      justify-content: flex-start;
     }
   </style>
   <div id="container"><slot></slot></div>
