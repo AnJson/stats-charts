@@ -4,6 +4,7 @@
  * @author Anders Jonsson
  * @version 1.0.0
  */
+import { StatsCollection } from '../../../stats/StatsCollection'
 import '../ChartCanvas/'
 
 const template = document.createElement('template')
@@ -14,6 +15,10 @@ template.innerHTML = `
       display: block;
       width: 100%;
       font-size: 10px;
+    }
+
+    #meta-container {
+      margin-top: 2em;
     }
   </style>
   <anjson-chart-canvas id="canvas"></anjson-chart-canvas>
@@ -70,15 +75,15 @@ customElements.define(
     /**
      * Send data to chart-canvas to draw a pie-chart in canvas and display optional meta-data.
      *
-     * @param {number[] | object[]} dataCollection - Collection of data from StatsCollection.
+     * @param {StatsCollection} statsCollection - StatsCollection-object.
      * @param {object} options - Options-object.
      */
-    createPieChart (dataCollection, options) {
+    createPieChart (statsCollection, options) {
       if (options?.title || options?.percent || options?.value) {
         this.#appendMetaBar(options)
       }
 
-      this.#canvasElement.drawPieChart(dataCollection)
+      this.#canvasElement.drawPieChart(statsCollection)
     }
 
     /**

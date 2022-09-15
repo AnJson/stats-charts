@@ -131,7 +131,7 @@ export class StatsCollection {
    */
   getCollectionOfDataWithPercent () {
     const percentCollection = []
-    const sumOfCollection = this.#getSumOfCollectionOfData()
+    const sumOfCollection = this.getSumOfCollection()
 
     for (const data of this.#collectionOfData) {
       const dataObject = this.#convertToObjectWithPercentProperty(data)
@@ -182,7 +182,7 @@ export class StatsCollection {
    *
    * @returns {number} - The sum of the values in the collectionOfData-field.
    */
-  #getSumOfCollectionOfData () {
+  getSumOfCollection () {
     /**
      * Reducing the array in collectionOfData-field to get the total sum of the values.
      *

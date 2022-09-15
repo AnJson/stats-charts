@@ -51,7 +51,7 @@ export class ChartDrawer {
 
     const chartElement = await this.#createChartElement()
     domElement.appendChild(chartElement)
-    chartElement.createPieChart(this.#statsCollection.collectionOfData, optionsObject)
+    chartElement.createPieChart(this.#statsCollection, optionsObject)
   }
 
   /**
