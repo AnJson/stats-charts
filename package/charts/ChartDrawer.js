@@ -41,7 +41,7 @@ export class ChartDrawer {
    * @throws {TypeError} - If options-argument is not an object.
    * @throws {Error} - If no DOM-element is found.
    */
-  async drawPieChart (elementId, options = {}) {
+  async appendPieChart (elementId, options = {}) {
     const optionsObject = this.#populateOptionsObject(options)
     const domElement = document.querySelector(`#${elementId}`)
 
@@ -62,7 +62,7 @@ export class ChartDrawer {
    * @throws {TypeError} - If options-argument is not an object.
    * @throws {Error} - If no DOM-element is found.
    */
-  async drawBarChart (elementId, options = {}) {
+  async appendBarChart (elementId, options = {}) {
     const optionsObject = this.#populateOptionsObject(options)
     const domElement = document.querySelector(`#${elementId}`)
 
