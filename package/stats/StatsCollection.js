@@ -64,25 +64,41 @@ export class StatsCollection {
   }
 
   /**
-   * Get the array of data that has the highest value in the collectionOfData-field.
+   * Get the minimum value in the collectionOfData-field.
    *
-   * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the highest value.
+   * @returns {number} - Collection of data from collectionOfData-field wich has the lowest value.
    */
-  getDataWithMaximumValues () {
-    /**
-     * Reducing the array in collectionOfData-field to get the maximum value.
-     *
-     * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
-     */
-    const maximumValue = this.#collectionOfData.reduce(
+  getMinimumValue () {
+    return this.#collectionOfData.reduce(
+      (previousData, currentData) =>
+        this.#getValue(previousData) < this.#getValue(currentData)
+          ? this.#getValue(previousData)
+          : this.#getValue(currentData)
+    )
+  }
+
+  /**
+   * Get the maximum value in the collectionOfData-field.
+   *
+   * @returns {number} - Collection of data from collectionOfData-field wich has the highest value.
+   */
+  getMaximumValue () {
+    return this.#collectionOfData.reduce(
       (previousData, currentData) =>
         this.#getValue(previousData) > this.#getValue(currentData)
           ? this.#getValue(previousData)
           : this.#getValue(currentData)
     )
+  }
 
+  /**
+   * Get the array of data that has the highest value in the collectionOfData-field.
+   *
+   * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the highest value.
+   */
+  getDataWithMaximumValues () {
     return this.#collectionOfData.filter(
-      (data) => this.#getValue(data) === maximumValue
+      (data) => this.#getValue(data) === this.getMaximumValue()
     )
   }
 
@@ -92,20 +108,8 @@ export class StatsCollection {
    * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the lowest value.
    */
   getDataWithMinimumValues () {
-    /**
-     * Reducing the array in collectionOfData-field to get the minimum value.
-     *
-     * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
-     */
-    const minimumValue = this.#collectionOfData.reduce(
-      (previousData, currentData) =>
-        this.#getValue(previousData) < this.#getValue(currentData)
-          ? this.#getValue(previousData)
-          : this.#getValue(currentData)
-    )
-
     return this.#collectionOfData.filter(
-      (data) => this.#getValue(data) === minimumValue
+      (data) => this.#getValue(data) === this.getMinimumValue()
     )
   }
 
@@ -143,6 +147,20 @@ export class StatsCollection {
   }
 
   /**
+   * Get the sum of the values in the collectionOfData-field.
+   *
+   * @returns {number} - The sum of the values in the collectionOfData-field.
+   */
+  getSumOfCollection () {
+    const sum = this.#collectionOfData.reduce(
+      (previousData, currentData) => previousData + this.#getValue(currentData),
+      0
+    )
+
+    return sum
+  }
+
+  /**
    * Get a copy from single data in the collectionOfData-field.
    *
    * @param {number | object} data - Data to copy from the collectionOfData-field.
@@ -175,25 +193,6 @@ export class StatsCollection {
     }
 
     return dataObjectWithPercentProperty
-  }
-
-  /**
-   * Get the sum of the values in the collectionOfData-field.
-   *
-   * @returns {number} - The sum of the values in the collectionOfData-field.
-   */
-  getSumOfCollection () {
-    /**
-     * Reducing the array in collectionOfData-field to get the total sum of the values.
-     *
-     * [Documentation for Array.reduce()]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce}
-     */
-    const sum = this.#collectionOfData.reduce(
-      (previousData, currentData) => previousData + this.#getValue(currentData),
-      0
-    )
-
-    return sum
   }
 
   /**
