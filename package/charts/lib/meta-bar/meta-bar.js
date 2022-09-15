@@ -23,18 +23,7 @@ template.innerHTML = `
       justify-content: center;
     }
   </style>
-  <div id="container">
-    <div>Dutt</div>
-    <div>Sådärja</div>
-    <div>Mhm</div>
-    <div>AHAAA</div>
-    <div>TITTUT</div>
-    <div>Tadaaa</div>
-    <div>Långtradarchaufför</div>
-    <div>Visst</div>
-    <div>Vettu</div>
-    <div>Nuharvimånga</div>
-  </div>
+  <div id="container"><slot></slot></div>
 `
 
 customElements.define(

@@ -41,5 +41,50 @@ customElements.define(
         template.content.cloneNode(true)
       )
     }
+
+    /**
+     * Attributes to observe.
+     *
+     * @returns {string[]} - Name of attributes to observe.
+     */
+    static get observedAttributes () {
+      return ['title', 'value', 'percent']
+    }
+
+    /**
+     * Handler for observed attributes.
+     *
+     * @param {string} name - Name of the modified attribute.
+     * @param {*} oldVal - Value before modification.
+     * @param {*} newVal - Value after modification.
+     */
+    attributeChangedCallback (name, oldVal, newVal) {
+      if (oldVal !== newVal) {
+        this.#triggerCallback(name, newVal)
+      }
+    }
+
+    /**
+     * Trigger callback based on the name of the attribute.
+     *
+     * @param {string} name - The name of the attribute.
+     * @param {string} value - The value of the given attribute.
+     */
+    #triggerCallback (name, value) {
+      if (name === 'title') {
+        // NOTE: Fix.
+        console.log(value)
+      }
+
+      if (name === 'value') {
+        // NOTE: Fix.
+        console.log(value)
+      }
+
+      if (name === 'percent') {
+        // NOTE: Fix.
+        console.log(value)
+      }
+    }
   }
 )

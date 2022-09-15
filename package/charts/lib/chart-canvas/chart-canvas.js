@@ -1,5 +1,5 @@
 import { StatsCollection } from '../../../stats/StatsCollection/'
-import { COLORS } from './lib/colors.js'
+import { COLORS } from '../constants/colors.js'
 
 /**
  * Custom chart-canvas element.

@@ -6,6 +6,7 @@
  */
 import { StatsCollection } from '../../../stats/StatsCollection'
 import '../chart-canvas/'
+import { COLORS } from '../constants/colors'
 
 const template = document.createElement('template')
 
@@ -80,14 +81,14 @@ customElements.define(
      */
     createPieChart (statsCollection, options) {
       if (options?.title || options?.percent || options?.value) {
-        this.#appendMetaBar(options)
+        this.#appendMetaBar(statsCollection, options)
       }
 
       this.#canvasElement.drawPieChart(statsCollection)
     }
 
     /**
-     * NOTE: ...
+     * Send data to chart-canvas to draw a bar-chart in canvas and display optional meta-data.
      *
      * @param {StatsCollection} statsCollection - StatsCollection-object.
      * @param {object} options - Options-object.
@@ -108,9 +109,36 @@ customElements.define(
      */
     async #appendMetaBar (statsCollection, options) {
       const metaBarElement = await this.#createMetaBarElement()
-      // TODO: Add data to display based on options.
+      const metaDataElements = await this.#generateMetaDataElements(statsCollection.getCollectionOfDataWithPercent(), options)
+
+      for (const element of metaDataElements) {
+        metaBarElement.appendChild(element)
+      }
 
       this.#metaContainerElement.appendChild(metaBarElement)
+    }
+
+    /**
+     * Append custom meta-bar element to shadow-dom.
+     *
+     * @param {number[] | object[]} dataCollection - Collection of data from StatsCollection, including the percent-property.
+     * @param {object} options - Options-object.
+     * @returns {HTMLElement[]} - Array of custom anjson-meta-data elements.
+     */
+    async #generateMetaDataElements (dataCollection, options) {
+      const metaDataElements = []
+
+      for (const [index, data] of dataCollection.entries()) {
+        const metaDataElement = await this.#createMetaDataElement()
+        metaDataElement.setAttribute('color', COLORS[index])
+        options.title && data.title ? metaDataElement.setAttribute('title', data.title) : metaDataElement.removeAttribute('title')
+        options.value && data.value ? metaDataElement.setAttribute('value', data.value) : metaDataElement.removeAttribute('value')
+        options.percent && data.percent ? metaDataElement.setAttribute('percent', data.percent) : metaDataElement.removeAttribute('percent')
+
+        metaDataElements.push(metaDataElement)
+      }
+
+      return metaDataElements
     }
 
     /**
@@ -122,6 +150,17 @@ customElements.define(
       await import(/* @vite-ignore */'../meta-bar')
 
       return document.createElement('anjson-meta-bar')
+    }
+
+    /**
+     * Import and create custom meta-data element.
+     *
+     * @returns {HTMLElement} - Custom anjson-meta-data element.
+     */
+    async #createMetaDataElement () {
+      await import(/* @vite-ignore */'../meta-data')
+
+      return document.createElement('anjson-meta-data')
     }
   }
 )
