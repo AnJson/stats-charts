@@ -73,14 +73,15 @@ customElements.define(
     }
 
     /**
-     * NOTE: ...
+     * Draw pie-chart on the canvas.
      *
      * @param {StatsCollection} statsCollection - StatsCollection-object.
      */
     drawPieChart (statsCollection) {
-      const { xAxisCenterPoint, yAxisCenterPoint, chartRadius } = this.#getCanvasMeta()
-      let currentAngle = 0
+      const { xAxisCenterPoint, yAxisCenterPoint } = this.#getCanvasMeta()
       const sum = statsCollection.getSumOfCollection()
+      let currentAngle = 0
+      const chartRadius = this.offsetHeight / 2
 
       // Paint the pie-chart on the canvas.
       for (const [index, data] of statsCollection.collectionOfData.entries()) {
@@ -100,19 +101,68 @@ customElements.define(
     }
 
     /**
+     * Draw bar-chart on the canvas.
+     *
+     * @param {StatsCollection} statsCollection - StatsCollection-object.
+     * @param {boolean} showAverege - Optionally show averege in the chart.
+     */
+    drawBarChart (statsCollection, showAverege) {
+      const { barWidth, gapWidth } = this.#getBarAndGapWidth(statsCollection)
+      let xPosition = 0
+
+      // Filling the Rectangle based on the input values
+      for (const [index, data] of statsCollection.collectionOfData.entries()) {
+        const barHeight = this.offsetHeight * (this.#getValue(data) / statsCollection.getMaximumValue())
+
+        this.#ctx.fillStyle = COLORS[index]
+        this.#ctx.fillRect(xPosition, (this.offsetHeight - barHeight), barWidth, barHeight)
+        xPosition += barWidth + gapWidth
+      }
+    }
+
+    /**
+     * Calculate width of bar and gap.
+     *
+     * @param {StatsCollection} statsCollection - StatsCollection-object.
+     * @returns {object} - Object with barWidth and gapWidth.
+     */
+    #getBarAndGapWidth (statsCollection) {
+      const numberOfData = statsCollection.collectionOfData.length
+      const maximumBarWidth = 70
+      const maximumGapWidth = 10
+
+      let barWidth = (this.offsetWidth / numberOfData)
+
+      if (barWidth > maximumBarWidth) {
+        barWidth = maximumBarWidth
+      }
+
+      let gapWidth = this.offsetWidth - (barWidth * (numberOfData - 1))
+
+      if (gapWidth > maximumGapWidth) {
+        gapWidth = maximumGapWidth
+      }
+
+      barWidth -= gapWidth
+
+      return {
+        barWidth,
+        gapWidth
+      }
+    }
+
+    /**
      * Get canvas metadata.
      *
-     * @returns {object} - Object with the canvas y- and x-axis center-points and the chartRadius.
+     * @returns {object} - Object with the canvas y- and x-axis center-points.
      */
     #getCanvasMeta () {
       const yAxisCenterPoint = this.offsetHeight / 2
       const xAxisCenterPoint = this.offsetWidth / 2
-      const chartRadius = this.offsetHeight / 2
 
       return {
         yAxisCenterPoint,
-        xAxisCenterPoint,
-        chartRadius
+        xAxisCenterPoint
       }
     }
 

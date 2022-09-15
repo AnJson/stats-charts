@@ -87,6 +87,20 @@ customElements.define(
     }
 
     /**
+     * NOTE: ...
+     *
+     * @param {StatsCollection} statsCollection - StatsCollection-object.
+     * @param {object} options - Options-object.
+     */
+    createBarChart (statsCollection, options) {
+      if (options?.title || options?.percent || options?.value) {
+        this.#appendMetaBar(options)
+      }
+
+      this.#canvasElement.drawBarChart(statsCollection, options.averege)
+    }
+
+    /**
      * Append custom meta-bar element to shadow-dom.
      *
      * @param {object} options - Options-object.

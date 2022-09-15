@@ -55,6 +55,27 @@ export class ChartDrawer {
   }
 
   /**
+   * Append a bar-chart to the DOM.
+   *
+   * @param {string} elementId - Name of the id-attribut on DOM element to append chart in.
+   * @param {object} options - Options for the chart-drawing.
+   * @throws {TypeError} - If options-argument is not an object.
+   * @throws {Error} - If no DOM-element is found.
+   */
+  async drawBarChart (elementId, options = {}) {
+    const optionsObject = this.#populateOptionsObject(options)
+    const domElement = document.querySelector(`#${elementId}`)
+
+    if (!domElement) {
+      throw new Error('No element found in the DOM.')
+    }
+
+    const chartElement = await this.#createChartElement()
+    domElement.appendChild(chartElement)
+    chartElement.createBarChart(this.#statsCollection, optionsObject)
+  }
+
+  /**
    * Populate an options-object with entered options and default values.
    *
    * @param {object} options - Options to add to the options-object.
