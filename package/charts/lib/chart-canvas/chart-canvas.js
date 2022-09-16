@@ -120,11 +120,11 @@ customElements.define(
 
       if (showAverege) {
         const yIndexOfAverege = this.offsetHeight - (this.offsetHeight * (statsCollection.getAveregeValue() / statsCollection.getMaximumValue()))
-        this.#ctx.lineWidth = 2
+        this.#ctx.lineWidth = 1
         this.#ctx.moveTo(0, yIndexOfAverege)
+        this.#ctx.setLineDash([6, 6])
         this.#ctx.lineTo(this.offsetWidth, yIndexOfAverege)
         this.#ctx.stroke()
-        // TODO: Add averege-value to canvas.
       }
     }
 
