@@ -16,12 +16,12 @@ export class Validator {
    * @param {any} data - Data to verify as object with value-property.
    * @returns {boolean} - Is data a valid object.
    */
-  isObjectWithNumberInValueProperty (data) {
+  isObjectWithPositiveNumberInValueProperty (data) {
     return (
       typeof data === 'object' &&
       !Array.isArray(data) &&
       Object.keys(data).includes('value') &&
-      this.isNumber(data.value)
+      this.isPositiveNumber(data.value)
     )
   }
 
@@ -31,8 +31,8 @@ export class Validator {
    * @param {any} data - Data to verify as number.
    * @returns {boolean} - Is data a number.
    */
-  isNumber (data) {
-    return typeof data === 'number' && !Number.isNaN(data)
+  isPositiveNumber (data) {
+    return typeof data === 'number' && !Number.isNaN(data) && data >= 0
   }
 
   /**
@@ -44,8 +44,8 @@ export class Validator {
   isValidStatsArray (datalist) {
     return (
       Array.isArray(datalist) &&
-      (datalist.every((data) => this.isObjectWithNumberInValueProperty(data)) ||
-        datalist.every((data) => this.isNumber(data)))
+      (datalist.every((data) => this.isObjectWithPositiveNumberInValueProperty(data)) ||
+        datalist.every((data) => this.isPositiveNumber(data)))
     )
   }
 
@@ -56,6 +56,6 @@ export class Validator {
    * @returns {boolean} - Is data an object.
    */
   isObject (data) {
-    return typeof data === 'object' && !Array.isArray(data)
+    return typeof data === 'object' && !Array.isArray(data) && data !== null
   }
 }

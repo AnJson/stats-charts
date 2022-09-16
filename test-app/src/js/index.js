@@ -1,4 +1,4 @@
-import { ChartDrawer } from '../../../package/charts/ChartDrawer'
+import { ChartDrawer } from '../../../package/src/charts/ChartDrawer'
 
 try {
   // const data1 = [255, 13, 25, 255, 18, 1, -1]
