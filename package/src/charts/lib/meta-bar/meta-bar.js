@@ -20,7 +20,7 @@ template.innerHTML = `
       display: flex;
       flex-wrap: wrap;
       gap: 1.5em;
-      justify-content: flex-start;
+      justify-content: center;
     }
   </style>
   <div id="container"><slot></slot></div>
