@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "/src/index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "start": "node index.js",
+    "start": "node ./src/index.js",
     "lint": "npx eslint . || exit 0",
     "lint:fix": "npx eslint . --fix || exit 0",
-    "test": "npx --node-options=--experimental-vm-modules jest || exit 0"
+    "test": "npx --node-options=--experimental-vm-modules jest || exit 0",
+    "test:coverage": "npx --node-options=--experimental-vm-modules jest --coverage || exit 0"
   },
   "contributors": [
     "Anders Jonsson <aj224rj@student.lnu.se>"

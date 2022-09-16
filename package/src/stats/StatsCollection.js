@@ -16,7 +16,7 @@ export class StatsCollection {
   /**
    * @type {number[] | object[]}
    */
-  #collectionOfData = []
+  #collectionOfData
 
   /**
    * @type {Validator}
@@ -56,11 +56,17 @@ export class StatsCollection {
   set collectionOfData (listOfData) {
     if (!this.#validator.isValidStatsArray(listOfData)) {
       throw new TypeError(
-        'Expected argument to be an array of objects with value-property holding a number or an array of numbers.'
+        'Expected argument to be an array of objects with value-property holding a positive number or an array of positive numbers.'
       )
     }
 
-    this.#collectionOfData = [...listOfData]
+    const listOfDataCopy = []
+
+    for (const data of listOfData) {
+      listOfDataCopy.push(this.#copyData(data))
+    }
+
+    this.#collectionOfData = listOfDataCopy
   }
 
   /**
@@ -169,7 +175,7 @@ export class StatsCollection {
   #copyData (data) {
     let dataCopy
 
-    if (this.#validator.isObjectWithNumberInValueProperty(data)) {
+    if (this.#validator.isObjectWithPositiveNumberInValueProperty(data)) {
       dataCopy = { ...data }
     } else {
       dataCopy = data
@@ -186,7 +192,7 @@ export class StatsCollection {
    */
   #convertToObjectWithPercentProperty (data) {
     let dataObjectWithPercentProperty
-    if (this.#validator.isObjectWithNumberInValueProperty(data)) {
+    if (this.#validator.isObjectWithPositiveNumberInValueProperty(data)) {
       dataObjectWithPercentProperty = { ...data, percent: undefined }
     } else {
       dataObjectWithPercentProperty = { value: data, percent: undefined }
@@ -204,7 +210,7 @@ export class StatsCollection {
   #getValue (data) {
     let value
 
-    if (this.#validator.isObjectWithNumberInValueProperty(data)) {
+    if (this.#validator.isObjectWithPositiveNumberInValueProperty(data)) {
       value = data.value
     } else {
       value = data
