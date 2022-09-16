@@ -56,6 +56,6 @@ export class Validator {
    * @returns {boolean} - Is data an object.
    */
   isObject (data) {
-    return typeof data === 'object' && !Array.isArray(data)
+    return typeof data === 'object' && !Array.isArray(data) && data !== null
   }
 }
