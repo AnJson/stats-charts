@@ -1,9 +1,15 @@
 {
   "name": "@anjson/stats-charts",
+  "author": "Anders Jonsson <aj224rj@student.lnu.se>",
   "version": "1.0.0",
-  "description": "",
+  "description": "Statistics and chart-drawer for arrays of data.",
   "type": "module",
   "main": "/src/index.js",
+  "keywords": ["charts", "statistics", "javascript"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnJson/stats-charts/tree/main/package"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -14,9 +20,6 @@
     "test": "npx --node-options=--experimental-vm-modules jest || exit 0",
     "test:coverage": "npx --node-options=--experimental-vm-modules jest --coverage || exit 0"
   },
-  "contributors": [
-    "Anders Jonsson <aj224rj@student.lnu.se>"
-  ],
   "license": "MIT",
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.4",
