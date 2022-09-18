@@ -1,4 +1,4 @@
-import { ChartDrawer } from '../../../package/src/charts/ChartDrawer'
+import { StatsCollection, ChartDrawer } from '@anjson/stats-charts'
 
 try {
   const data = [{ title: 'Orchs', value: 25 }, { title: 'Hobbits', value: 130 }, { title: 'Elfs', value: 130 }, { title: 'Dvarfs', value: 130 }]
@@ -7,6 +7,10 @@ try {
   const chartDrawer1 = new ChartDrawer(data)
   const chartDrawer2 = new ChartDrawer(data2)
   const chartDrawer3 = new ChartDrawer(data)
+
+  const statsCollection = new StatsCollection(data)
+
+  console.log(statsCollection.getCollectionOfDataWithPercent())
 
   chartDrawer1.appendPieChart('pie-container-1', { title: true, percent: true, value: true })
   chartDrawer1.appendPieChart('pie-container-2', { title: true, percent: true })
