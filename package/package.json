@@ -8,7 +8,7 @@
   "keywords": ["charts", "statistics", "javascript"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/AnJson/stats-charts/tree/main/package"
+    "url": "https://github.com/AnJson/stats-charts.git"
   },
   "scripts": {
     "dev": "vite",
