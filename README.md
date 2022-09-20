@@ -30,8 +30,8 @@ Testning av modulen har gjorts genom både manuell testning och automatisk enhet
 
 ## Funktioner
 
-| Namn och förklaring           |  Reflektion och regler från Clean Code |
-|:-----------------------------:|:--------------------------------------:|
+| Metodnamn och länk eller kod  | Antal rader |  Reflektion                            |
+|:-----------------------------:||-----------:|:--------------------------------------:|
 |       |         |
 
 ## Reflektion
