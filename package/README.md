@@ -169,7 +169,7 @@ A class instanciated with an array of numbers or an array of objects with at lea
 
 ## Bugreport/Issues
 
-- A collection larger than 25 results in an Error due to limited amount of colors. (https://github.com/AnJson/stats-charts/issues/6)
+- A collection larger than 25 results in not showing colors for the exceeding data due to limited amount of colors. (https://github.com/AnJson/stats-charts/issues/6)
 
 ## Contribute
 
