@@ -18,9 +18,15 @@ Diagram som kan illustrera data från en samling är:
 
 ## Beroenden
 
-Paketet i helhet har inga externa beroenden av andra moduler eller ramverk.
+**Paketet i helhet har inga externa beroenden av andra moduler eller ramverk.**
 
-Inom paketet finns beroenden mellan ChartDrawer som har en associations-relation till StatsCollection- och Validator-klassen. Även StatsCollection har en associations-relation till Validator-klassen.
+Inom paketet finns beroenden mellan ChartDrawer som har en associations-relation till StatsCollection- och Validator-klassen. ChartDrawer har även en dependencie-relation till Chart-modulen som är ett custom element.
+
+Chart-modulen och chart-canvas -modulen som båda är custom elements, har en dependencie-relation till StatsCollection för att kunna göra uträkningar på data.
+
+Även StatsCollection har en associations-relation till Validator-klassen.
+
+
 
 ## Testning
 
