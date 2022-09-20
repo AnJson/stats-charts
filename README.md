@@ -16,6 +16,12 @@ Diagram som kan illustrera data från en samling är:
 
 [För användning av paketet läs här.](./package/README.md)
 
+## Beroenden
+
+Paketet i helhet har inga externa beroenden av andra moduler eller ramverk.
+
+Inom paketet finns beroenden mellan ChartDrawer som har en associations-relation till StatsCollection- och Validator-klassen. Även StatsCollection har en associations-relation till Validator-klassen.
+
 ## Testning
 
 Testning av modulen har gjorts genom både manuell testning och automatisk enhetstestning.
