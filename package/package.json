@@ -1,14 +1,18 @@
 {
   "name": "@anjson/stats-charts",
   "author": "Anders Jonsson <aj224rj@student.lnu.se>",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Statistics and chart-drawer for arrays of data.",
   "type": "module",
   "main": "/src/index.js",
-  "keywords": ["charts", "statistics", "javascript"],
+  "keywords": [
+    "charts",
+    "statistics",
+    "javascript"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/AnJson/stats-charts.git"
+    "url": "https://github.com/AnJson/stats-charts/tree/main/package"
   },
   "scripts": {
     "dev": "vite",

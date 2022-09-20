@@ -34,8 +34,6 @@ A class instanciated with an array of numbers or an array of objects with at lea
 
 #### Properties
 
-<br>
-
 * **collectionOfData**
 
   The array of data set in the constructor.
@@ -45,8 +43,6 @@ A class instanciated with an array of numbers or an array of objects with at lea
 <br>
 
 #### Methods
-
-<br>
 
 * **constructor**
 
@@ -129,8 +125,6 @@ A class instanciated with an array of numbers or an array of objects with at lea
 
 #### Methods
 
-<br>
-
 * **constructor**
 
   Create an instance of the ChartDrawer. The argument should be an array of numbers or an array of objects with at least a value-property. <br>
@@ -172,3 +166,21 @@ A class instanciated with an array of numbers or an array of objects with at lea
   **throws:** *Error | TypeError* <br>
 
 <br>
+
+## Bugreport/Issues
+
+- A collection larger than 25 results in an Error due to limited amount of colors. (https://github.com/AnJson/stats-charts/issues/6)
+
+## Contribute
+
+Work with the repository(https://github.com/AnJson/stats-charts) locally and make a pull-request to make contributions to the package.
+
+Contribution with features like these are always more than welcome:
+
+* More chart-types.
+* More types of statistics.
+* Update charts to handle more meta-data.
+* Improve layout of charts.
+* Bug-fixes.
+etc.
+
