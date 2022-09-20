@@ -171,6 +171,8 @@ A class instanciated with an array of numbers or an array of objects with at lea
 
 - A collection larger than 25 results in not showing colors for the exceeding data due to limited amount of colors. (https://github.com/AnJson/stats-charts/issues/6)
 
+[Test report](../testrapport.md)
+
 ## Contribute
 
 Work with the repository(https://github.com/AnJson/stats-charts) locally and make a pull-request to make contributions to the package.
