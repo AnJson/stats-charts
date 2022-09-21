@@ -187,16 +187,12 @@ customElements.define(
      * @param {string} value - Value from percent-attribute.
      */
     #handleStateOfPercent (value) {
-      try {
-        if (this.hasAttribute('percent')) {
-          this.#percentElement.classList.remove('hidden')
-          this.#percentElement.textContent = `(${Number.parseFloat(value * 100).toFixed(1)}%)`
-        } else {
-          this.#percentElement.textContent = ''
-          this.#percentElement.classList.add('hidden')
-        }
-      } catch (error) {
-        console.log(error)
+      if (this.hasAttribute('percent')) {
+        this.#percentElement.classList.remove('hidden')
+        this.#percentElement.textContent = `(${Number.parseFloat(value * 100).toFixed(1)}%)`
+      } else {
+        this.#percentElement.textContent = ''
+        this.#percentElement.classList.add('hidden')
       }
     }
   }
