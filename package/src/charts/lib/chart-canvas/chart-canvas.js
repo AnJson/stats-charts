@@ -104,9 +104,9 @@ customElements.define(
      * Draw bar-chart on the canvas.
      *
      * @param {StatsCollection} statsCollection - StatsCollection-object.
-     * @param {boolean} showAverege - Optionally show averege in the chart.
+     * @param {boolean} showAverage - Optionally show averege in the chart.
      */
-    drawBarChart (statsCollection, showAverege) {
+    drawBarChart (statsCollection, showAverage) {
       const { barWidth, gapWidth } = this.#getBarAndGapWidth(statsCollection)
       let xPosition = 0
 
@@ -118,7 +118,7 @@ customElements.define(
         xPosition += barWidth + gapWidth
       }
 
-      if (showAverege) {
+      if (showAverage) {
         const yIndexOfAverege = this.offsetHeight - (this.offsetHeight * (statsCollection.getAveregeValue() / statsCollection.getMaximumValue()))
         this.#ctx.lineWidth = 1
         this.#ctx.moveTo(0, yIndexOfAverege)
