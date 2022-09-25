@@ -121,7 +121,7 @@ customElements.define(
     /**
      * Append custom meta-bar element to shadow-dom.
      *
-     * @param {number[] | object[]} dataCollection - Collection of data from StatsCollection, including the percent-property.
+     * @param {object[]} dataCollection - Collection of data from StatsCollection, including the percent-property.
      * @param {object} options - Options-object.
      * @returns {HTMLElement[]} - Array of custom anjson-meta-data elements.
      */

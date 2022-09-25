@@ -120,11 +120,11 @@ export class StatsCollection {
   }
 
   /**
-   * Calculate the averege-value from the collection of data.
+   * Calculate the average-value from the collection of data.
    *
-   * @returns {number} - The calculated averege value.
+   * @returns {number} - The calculated average value.
    */
-  getAveregeValue () {
+  getAverageValue () {
     let sum = 0
 
     for (const data of this.#collectionOfData) {

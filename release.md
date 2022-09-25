@@ -18,16 +18,31 @@
     - [ ] Det finns en tydlig beskrivning i hur modulen skall användas (i git)
     - [ ] Kodkvalitetskraven är varierade 
   - [x] Jag eftersträvar med denna inlämning högsta betyg (A) 
-​
-Förtydligande: Examinator kommer sätta betyg oberoende på vad ni anser. 
-​
+​​
 ## Återanvändning
 Jag gjorde ett npm-paket för enkel installation och användning av mitt paket. [Instruktioner finns här.](./package/README.md)
 ​
 ## Beskrivning av min kod
-Beskriv din kod på en hög abstraktionsnivå. En kort beskrivning av dina viktigaste klasser och metoder. Skapa gärna ett klassdiagram som bild. Använd det ni lärt er så här långt i 1dv607. Kommunicera så att jag kan förstå.
+Min modul är en javascript-modul som består av två stycken publika klasser och ett antal klasser som utgör custom web components samt en helper-klass för att validera datatyp och hantera fel.
 
-Min modul består av två stycken publika klasser och ett antal klasser som utgör custom web components och en helper-klass för att validera datatyp och hantera fel.
+De publika klasserna är StatsCollection och ChartDrawer.
+
+StatsCollection är en klass som instansieras med en array av nummer alternativt en array av objekt med ett value-attribut innehållande ett nummer. Utifrån denna samling av data kan man sedan kalla på metoder för att hämta ut medelvärde, högst/lägst värde, vilket/vilka av objekten som har det högsta/lägsta värdet med mera.
+
+ChartDrawer instansieras med samma typ av array som StatsCollection instansieras med, då ChartDrawer bakom kulisserna skapar ett StatsCollection objekt för att beräkna data utifrån. ChartDrawer har sedan endast två publika metoder, appendPieChart och appendBarChart för att enkelt kunna visa diagram i DOM-element.
+
+![class-diagram](./class-diagram.jpeg)
+
+## Beroenden
+
+**Paketet i helhet har inga externa beroenden av andra moduler eller ramverk.**
+
+Inom paketet finns beroenden mellan ChartDrawer som har en associations-relation till StatsCollection- och Validator-klassen. 
+Även StatsCollection har en associations-relation till Validator-klassen.
+
+ChartDrawer har även en dependencie-relation till Chart-modulen som är ett custom element.
+
+Chart-modulen och chart-canvas -modulen som båda är custom elements, har en dependencie-relation till StatsCollection för att kunna göra uträkningar på data.
 ​
 ## Hur jag testat / Testfall
 Jag har har gjort både automatiska enhetstester för att kontrollera så att metoder beter sig på rätt sätt och att utdata är vad som förväntas, och manuella tester för att se att diagram visas som de ska i webbläsaren.
@@ -36,9 +51,7 @@ Jag har har gjort både automatiska enhetstester för att kontrollera så att me
 ​
 ​
 ## Kodkvalitetskrav
-​
-**Fetmarkera** de "regler" som används ur CC. Ni kan frångå tabellformat om ni vill. Skapa direktlänkar till er kod där det är lämpligt. Skriv så att jag kan förstå.
-​
+​​
 ## Namngivning
 
 <br>
