@@ -51,6 +51,7 @@ export class StatsCollection {
   /**
    * Set the collectionOfData-field.
    *
+   * @param {number[] | object[]} listOfData - The list of data to get stats from.
    * @throws {TypeError} - If argument is not an array of objects with value-property or an array of numbers.
    */
   set collectionOfData (listOfData) {
@@ -75,12 +76,14 @@ export class StatsCollection {
    * @returns {number} - Collection of data from collectionOfData-field wich has the lowest value.
    */
   getMinimumValue () {
-    return this.#collectionOfData.reduce(
+    const filteredOutMinimumValue = this.#collectionOfData.reduce(
       (previousData, currentData) =>
         this.#getValue(previousData) < this.#getValue(currentData)
           ? this.#getValue(previousData)
           : this.#getValue(currentData)
     )
+
+    return filteredOutMinimumValue
   }
 
   /**
@@ -89,12 +92,14 @@ export class StatsCollection {
    * @returns {number} - Collection of data from collectionOfData-field wich has the highest value.
    */
   getMaximumValue () {
-    return this.#collectionOfData.reduce(
+    const filteredOutMaximumValue = this.#collectionOfData.reduce(
       (previousData, currentData) =>
         this.#getValue(previousData) > this.#getValue(currentData)
           ? this.#getValue(previousData)
           : this.#getValue(currentData)
     )
+
+    return filteredOutMaximumValue
   }
 
   /**
@@ -103,9 +108,11 @@ export class StatsCollection {
    * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the highest value.
    */
   getDataWithMaximumValues () {
-    return this.#collectionOfData.filter(
+    const collectiondataWithMaxValues = this.#collectionOfData.filter(
       (data) => this.#getValue(data) === this.getMaximumValue()
     )
+
+    return collectiondataWithMaxValues
   }
 
   /**
@@ -114,9 +121,11 @@ export class StatsCollection {
    * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the lowest value.
    */
   getDataWithMinimumValues () {
-    return this.#collectionOfData.filter(
+    const collectiondataWithMinValues = this.#collectionOfData.filter(
       (data) => this.#getValue(data) === this.getMinimumValue()
     )
+
+    return collectiondataWithMinValues
   }
 
   /**

@@ -34,7 +34,7 @@ export class ChartDrawer {
   }
 
   /**
-   * Append a pie-chart to the DOM.
+   * Append a pie-chart to the DOM by querying the DOM for element by id.
    *
    * @param {string} elementId - Name of the id-attribut on DOM element to append chart in.
    * @param {object} options - Options for the chart-drawing.
@@ -43,19 +43,14 @@ export class ChartDrawer {
    */
   async appendPieChart (elementId, options = {}) {
     const optionsObject = this.#populateOptionsObject(options)
-    const domElement = document.querySelector(`#${elementId}`)
-
-    if (!domElement) {
-      throw new Error('No element found in the DOM.')
-    }
-
+    const domElement = this.#querySelectDOMElement(elementId)
     const chartElement = await this.#createChartElement()
     domElement.appendChild(chartElement)
     chartElement.createPieChart(this.#statsCollection, optionsObject)
   }
 
   /**
-   * Append a bar-chart to the DOM.
+   * Append a bar-chart to the DOM by querying the DOM for element by id.
    *
    * @param {string} elementId - Name of the id-attribut on DOM element to append chart in.
    * @param {object} options - Options for the chart-drawing.
@@ -64,15 +59,27 @@ export class ChartDrawer {
    */
   async appendBarChart (elementId, options = {}) {
     const optionsObject = this.#populateOptionsObject(options)
-    const domElement = document.querySelector(`#${elementId}`)
+    const domElement = this.#querySelectDOMElement(elementId)
+    const chartElement = await this.#createChartElement()
+    domElement.appendChild(chartElement)
+    chartElement.createBarChart(this.#statsCollection, optionsObject)
+  }
+
+  /**
+   * Query select a single element in the dom by id.
+   *
+   * @param {string} id - Value of the id-property for an element in the DOM.
+   * @throws {Error} - If no DOM-element is found.
+   * @returns {Element} - The selected DOM-element if found.
+   */
+  #querySelectDOMElement (id) {
+    const domElement = document.querySelector(`#${id}`)
 
     if (!domElement) {
       throw new Error('No element found in the DOM.')
     }
 
-    const chartElement = await this.#createChartElement()
-    domElement.appendChild(chartElement)
-    chartElement.createBarChart(this.#statsCollection, optionsObject)
+    return domElement
   }
 
   /**
