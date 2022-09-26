@@ -14,13 +14,13 @@ describe('average', () => {
     it('from a collection of [10, 12, 8, 2] the method should return 8', () => {
       const data = [10, 12, 8, 2]
       const statsCollection = new StatsCollection(data)
-      expect(statsCollection.getAveregeValue()).toBe(8)
+      expect(statsCollection.getAverageValue()).toBe(8)
     })
 
     it('from a collection of [{ value: 10 }, { value: 8 }, { value: 3}] the method should return 7', () => {
       const data = [{ value: 10 }, { value: 8 }, { value: 3 }]
       const statsCollection = new StatsCollection(data)
-      expect(statsCollection.getAveregeValue()).toBe(7)
+      expect(statsCollection.getAverageValue()).toBe(7)
     })
   })
 })
