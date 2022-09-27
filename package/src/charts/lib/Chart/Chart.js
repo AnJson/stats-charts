@@ -4,9 +4,11 @@
  * @author Anders Jonsson
  * @version 1.0.0
  */
-import { StatsCollection } from '../../../stats/StatsCollection'
-import '../chart-canvas/'
+import { StatsCollection } from '../../../stats/StatsCollection.js'
+import '../chart-canvas/index.js'
 import { COLORS } from '../constants/colors'
+import '../meta-data/index.js'
+import '../meta-bar/index.js'
 
 const template = document.createElement('template')
 
@@ -108,7 +110,7 @@ customElements.define(
      * @param {object} options - Options-object.
      */
     async #appendMetaBar (statsCollection, options) {
-      const metaBarElement = await this.#createMetaBarElement()
+      const metaBarElement = document.createElement('anjson-meta-bar')
       const metaDataElements = await this.#generateMetaDataElements(statsCollection.getCollectionOfDataWithPercent(), options)
 
       for (const element of metaDataElements) {
@@ -129,7 +131,7 @@ customElements.define(
       const metaDataElements = []
 
       for (const [index, data] of dataCollection.entries()) {
-        const metaDataElement = await this.#createMetaDataElement()
+        const metaDataElement = document.createElement('anjson-meta-data')
         metaDataElement.setAttribute('color', COLORS[index])
         options.title && data.title ? metaDataElement.setAttribute('title', data.title) : metaDataElement.removeAttribute('title')
         options.value && data.value ? metaDataElement.setAttribute('value', data.value) : metaDataElement.removeAttribute('value')
@@ -139,28 +141,6 @@ customElements.define(
       }
 
       return metaDataElements
-    }
-
-    /**
-     * Import and create custom meta-bar element.
-     *
-     * @returns {HTMLElement} - Custom anjson-meta-bar element.
-     */
-    async #createMetaBarElement () {
-      await import(/* @vite-ignore */'../meta-bar')
-
-      return document.createElement('anjson-meta-bar')
-    }
-
-    /**
-     * Import and create custom meta-data element.
-     *
-     * @returns {HTMLElement} - Custom anjson-meta-data element.
-     */
-    async #createMetaDataElement () {
-      await import(/* @vite-ignore */'../meta-data')
-
-      return document.createElement('anjson-meta-data')
     }
   }
 )

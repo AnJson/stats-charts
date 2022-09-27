@@ -17,7 +17,11 @@ This package offers methods to get stats and to append charts to the DOM based o
 A class instanciated with an array of numbers or an array of objects with at least a value-property.
 
 ```javascript
+  // Import with bundler like (webpack/vite etc).
   import { StatsCollection } from '@anjson/stats-charts'
+
+  // Import without bundler.
+  import { StatsCollection } from './node_modules/@anjson/stats-charts/index.js'
 
   const statsCollection = new StatsCollection([100, 110, 5, 12])
 
@@ -115,7 +119,11 @@ A class instanciated with an array of numbers or an array of objects with at lea
 ```
 
 ```javascript
+  // Import with bundler like (webpack/vite etc).
   import { ChartDrawer } from '@anjson/stats-charts'
+
+  // Import without bundler.
+  import { ChartDrawer } from './node_modules/@anjson/stats-charts/index.js'
 
   const chartDrawer = new ChartDrawer([{ title: 'a', value: 100 }, { title: 'a', value: 110 }, { title: 'a', value: 5 }, { title: 'a', value: 12 }])
 

@@ -6,6 +6,7 @@
  */
 import { Validator } from '../helpers/Validator.js'
 import { StatsCollection } from '../stats/StatsCollection.js'
+import './lib/Chart/index.js'
 
 /**
  * Wrapper class for chart-drawing methods.
@@ -41,10 +42,10 @@ export class ChartDrawer {
    * @throws {TypeError} - If options-argument is not an object.
    * @throws {Error} - If no DOM-element is found.
    */
-  async appendPieChart (elementId, options = {}) {
+  appendPieChart (elementId, options = {}) {
     const optionsObject = this.#populateOptionsObject(options)
     const domElement = this.#querySelectDOMElement(elementId)
-    const chartElement = await this.#createChartElement()
+    const chartElement = document.createElement('anjson-chart')
     domElement.appendChild(chartElement)
     chartElement.createPieChart(this.#statsCollection, optionsObject)
   }
@@ -57,10 +58,10 @@ export class ChartDrawer {
    * @throws {TypeError} - If options-argument is not an object.
    * @throws {Error} - If no DOM-element is found.
    */
-  async appendBarChart (elementId, options = {}) {
+  appendBarChart (elementId, options = {}) {
     const optionsObject = this.#populateOptionsObject(options)
     const domElement = this.#querySelectDOMElement(elementId)
-    const chartElement = await this.#createChartElement()
+    const chartElement = document.createElement('anjson-chart')
     domElement.appendChild(chartElement)
     chartElement.createBarChart(this.#statsCollection, optionsObject)
   }
@@ -98,16 +99,5 @@ export class ChartDrawer {
       percent: (options.percent !== undefined) && (typeof options.percent === 'boolean') ? options.percent : false,
       value: (options.value !== undefined) && (typeof options.value === 'boolean') ? options.value : false
     }
-  }
-
-  /**
-   * Import and create custom chart element.
-   *
-   * @returns {HTMLElement} - Custom anjson-chart element.
-   */
-  async #createChartElement () {
-    await import(/* @vite-ignore */'./lib/Chart/')
-
-    return document.createElement('anjson-chart')
   }
 }

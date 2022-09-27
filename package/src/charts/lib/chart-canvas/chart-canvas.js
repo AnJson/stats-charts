@@ -1,4 +1,4 @@
-import { StatsCollection } from '../../../stats/StatsCollection/'
+import { StatsCollection } from '../../../stats/StatsCollection.js'
 import { COLORS } from '../constants/colors.js'
 
 /**

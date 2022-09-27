@@ -1,7 +1,7 @@
 {
   "name": "@anjson/stats-charts",
   "author": "Anders Jonsson <aj224rj@student.lnu.se>",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Statistics and chart-drawer for arrays of data.",
   "type": "module",
   "main": "index.js",
