@@ -6,7 +6,7 @@
  */
 import { StatsCollection } from '../../../stats/StatsCollection.js'
 import '../chart-canvas/index.js'
-import { COLORS } from '../constants/colors'
+import { COLORS } from '../constants/colors.js'
 import '../meta-data/index.js'
 import '../meta-bar/index.js'
 
