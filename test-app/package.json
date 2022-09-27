@@ -1,6 +1,6 @@
 {
   "name": "stats-charts-test-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Test-app for testing the @anjson/stats-charts library.",
   "type": "module",
   "browser": "src/js/index.js",
@@ -21,6 +21,6 @@
     "vite": "^2.6.7"
   },
   "dependencies": {
-    "@anjson/stats-charts": "^1.0.0"
+    "@anjson/stats-charts": "^1.0.3"
   }
 }

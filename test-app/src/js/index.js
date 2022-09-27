@@ -1,10 +1,9 @@
-// import { ChartDrawer } from '@anjson/stats-charts'
+import { ChartDrawer } from '@anjson/stats-charts'
 
 try {
   // -----------------------------
   // [UC 1] Display pie-charts.
   // -----------------------------
-  /*
   const data = [{ title: 'Orchs', value: 25 }, { title: 'Hobbits', value: 130 }, { title: 'Elfs', value: 130 }, { title: 'Dvarfs', value: 130 }]
 
   const chartDrawer1 = new ChartDrawer(data)
@@ -14,8 +13,6 @@ try {
   chartDrawer1.appendPieChart('pie-container-3', { title: true })
   chartDrawer1.appendPieChart('pie-container-4')
   chartDrawer1.appendPieChart('pee-container')
-  */
-
   // -----------------------------
   // [UC2] Display bar-charts.
   // -----------------------------

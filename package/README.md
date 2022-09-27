@@ -19,9 +19,9 @@ A class instanciated with an array of numbers or an array of objects with at lea
 ```javascript
   import { StatsCollection } from '@anjson/stats-charts'
 
-  const statsCharts = new StatsCharts([100, 110, 5, 12])
+  const statsCollection = new StatsCollection([100, 110, 5, 12])
 
-  console.log(statsCharts.getCollectionOfDataWithPercent())
+  console.log(statsCollection.getCollectionOfDataWithPercent())
   /*
   [
     { value: 100, percent: 0.44052863436123346 },
@@ -117,7 +117,7 @@ A class instanciated with an array of numbers or an array of objects with at lea
 ```javascript
   import { ChartDrawer } from '@anjson/stats-charts'
 
-  const chartDrawer = new StatsCharts([{ title: 'a', value: 100 }, { title: 'a', value: 110 }, { title: 'a', value: 5 }, { title: 'a', value: 12 }])
+  const chartDrawer = new ChartDrawer([{ title: 'a', value: 100 }, { title: 'a', value: 110 }, { title: 'a', value: 5 }, { title: 'a', value: 12 }])
 
   chartDrawer.appendPieChart('pie-chart', { title: true, percent: true, value: true })
   chartDrawer.appendBarChart('bar-chart', { title: true, percent: true, value: true, average: true })
