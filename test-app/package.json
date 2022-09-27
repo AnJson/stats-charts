@@ -21,6 +21,6 @@
     "vite": "^2.6.7"
   },
   "dependencies": {
-    "@anjson/stats-charts": "^1.0.4"
+    "@anjson/stats-charts": "^1.0.5"
   }
 }
