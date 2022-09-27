@@ -21,6 +21,7 @@
 ​​
 ## Återanvändning
 Jag gjorde ett npm-paket för enkel installation och användning av mitt paket. [Instruktioner finns här.](./package/README.md)
+(Dokumentationen hittas även på [npm](https://www.npmjs.com/package/@anjson/stats-charts))
 ​
 ## Beskrivning av min kod
 Min modul är en javascript-modul som består av två stycken publika klasser och ett antal klasser som utgör custom web components samt en helper-klass för att validera datatyp och hantera fel.
