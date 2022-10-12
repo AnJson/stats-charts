@@ -100,7 +100,7 @@ customElements.define(
         this.#appendMetaBar(statsCollection, options)
       }
 
-      this.#canvasElement.drawBarChart(statsCollection, options.averege)
+      this.#canvasElement.drawBarChart(statsCollection, options.average)
     }
 
     /**

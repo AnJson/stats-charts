@@ -86,7 +86,7 @@ A class instanciated with an array of numbers or an array of objects with at lea
 
   <br>
 
-* **getAveregeValue**
+* **getAverageValue**
 
   Get the average-value from the collection of data. <br>
   **returns:** *number*

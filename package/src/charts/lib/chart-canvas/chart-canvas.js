@@ -119,11 +119,11 @@ customElements.define(
       }
 
       if (showAverage) {
-        const yIndexOfAverege = this.offsetHeight - (this.offsetHeight * (statsCollection.getAverageValue() / statsCollection.getMaximumValue()))
+        const yIndexOfAverage = this.offsetHeight - (this.offsetHeight * (statsCollection.getAverageValue() / statsCollection.getMaximumValue()))
         this.#ctx.lineWidth = 1
-        this.#ctx.moveTo(0, yIndexOfAverege)
+        this.#ctx.moveTo(0, yIndexOfAverage)
         this.#ctx.setLineDash([6, 6])
-        this.#ctx.lineTo(this.offsetWidth, yIndexOfAverege)
+        this.#ctx.lineTo(this.offsetWidth, yIndexOfAverage)
         this.#ctx.stroke()
       }
     }

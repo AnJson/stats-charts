@@ -95,7 +95,7 @@ export class ChartDrawer {
     }
     return {
       title: (options.title !== undefined) && (typeof options.title === 'boolean') ? options.title : false,
-      averege: (options.averege !== undefined) && (typeof options.averege === 'boolean') ? options.averege : false,
+      average: (options.average !== undefined) && (typeof options.average === 'boolean') ? options.average : false,
       percent: (options.percent !== undefined) && (typeof options.percent === 'boolean') ? options.percent : false,
       value: (options.value !== undefined) && (typeof options.value === 'boolean') ? options.value : false
     }

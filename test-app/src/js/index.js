@@ -22,14 +22,13 @@ try {
 
   const chartDrawer2 = new ChartDrawer(data2)
   const chartDrawer3 = new ChartDrawer(data3)
-  chartDrawer2.appendBarChart('bar-container-1', { averege: true, percent: true, value: true, title: true })
-  chartDrawer2.appendBarChart('bar-container-2', { averege: true, percent: true, value: true })
-  chartDrawer2.appendBarChart('bar-container-3', { averege: true, percent: true })
-  chartDrawer2.appendBarChart('bar-container-4', { averege: true })
+  chartDrawer2.appendBarChart('bar-container-1', { average: true, percent: true, value: true, title: true })
+  chartDrawer2.appendBarChart('bar-container-2', { average: true, percent: true, value: true })
+  chartDrawer2.appendBarChart('bar-container-3', { average: true, percent: true })
+  chartDrawer2.appendBarChart('bar-container-4', { average: true })
   chartDrawer2.appendBarChart('bar-container-5')
-  chartDrawer3.appendBarChart('bar-container-6', { averege: true, percent: true, value: true, title: true })
-  */
-
+  chartDrawer3.appendBarChart('bar-container-6', { average: true, percent: true, value: true, title: true })
+ */
   // -----------------------------
   // [UC 3] Large amount of data in constructor.
   // -----------------------------
