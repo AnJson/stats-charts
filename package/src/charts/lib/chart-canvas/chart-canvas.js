@@ -119,7 +119,7 @@ customElements.define(
       }
 
       if (showAverage) {
-        const yIndexOfAverege = this.offsetHeight - (this.offsetHeight * (statsCollection.getAveregeValue() / statsCollection.getMaximumValue()))
+        const yIndexOfAverege = this.offsetHeight - (this.offsetHeight * (statsCollection.getAverageValue() / statsCollection.getMaximumValue()))
         this.#ctx.lineWidth = 1
         this.#ctx.moveTo(0, yIndexOfAverege)
         this.#ctx.setLineDash([6, 6])
