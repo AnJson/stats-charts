@@ -18,6 +18,7 @@ export class ChartDrawer {
    * @type {StatsCollection}
    */
   #statsCollection
+  #validator = new Validator()
 
   constructor (listOfData) {
     this.#statsCollection = new StatsCollection(listOfData)
@@ -63,7 +64,7 @@ export class ChartDrawer {
    * @returns {Element} - The selected DOM-element if found.
    */
   #querySelectDOMElement (id) {
-    Validator.verifyElementInDOM(`#${id}`)
+    this.#validator.verifyElementInDOM(`#${id}`)
     const domElement = document.querySelector(`#${id}`)
 
     return domElement
@@ -76,7 +77,7 @@ export class ChartDrawer {
    * @returns {object} - Options-object populated with entered options and default values.
    */
   #populateOptionsObject (options) {
-    Validator.isObject(options)
+    this.#validator.validateObject(options)
 
     return {
       title: (options.title !== undefined) && (typeof options.title === 'boolean') ? options.title : false,

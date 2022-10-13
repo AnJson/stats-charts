@@ -12,6 +12,7 @@ export class StatsCollection {
    * @type {number[] | object[]}
    */
   #data
+  #validator = new Validator()
 
   constructor (listOfData) {
     this.data = listOfData
@@ -28,7 +29,7 @@ export class StatsCollection {
   }
 
   set data (listOfData) {
-    Validator.isValidStatsArray(listOfData)
+    this.#validator.validateValidStatsArray(listOfData)
     this.#data = this.#getCopy(listOfData)
   }
 
@@ -45,7 +46,7 @@ export class StatsCollection {
   #copySingleData (data) {
     let dataCopy
     try {
-      Validator.isObjectWithPositiveNumberInValueProperty(data)
+      this.#validator.validateObjectWithPositiveNumberInValueProperty(data)
       dataCopy = { ...data }
     } catch (error) {
       dataCopy = data
@@ -161,7 +162,7 @@ export class StatsCollection {
     let dataObjectWithPercentProperty
 
     try {
-      Validator.validateObjectWithPositiveNumberInValueProperty(data)
+      this.#validator.validateObjectWithPositiveNumberInValueProperty(data)
       dataObjectWithPercentProperty = { ...data, percent: undefined }
     } catch (error) {
       dataObjectWithPercentProperty = { value: data, percent: undefined }
@@ -179,7 +180,7 @@ export class StatsCollection {
   #getValue (data) {
     let value
     try {
-      Validator.isObjectWithPositiveNumberInValueProperty(data)
+      this.#validator.validateObjectWithPositiveNumberInValueProperty(data)
       value = data.value
     } catch (error) {
       value = data
