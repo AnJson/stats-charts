@@ -41,43 +41,12 @@ template.innerHTML = `
 
 customElements.define(
   'anjson-meta-data',
-  /**
-   * Class to define custom element.
-   *
-   */
   class extends HTMLElement {
-    /**
-     * Div element showing the color.
-     *
-     * @type {HTMLElement}
-     */
     #colorBoxElement
-
-    /**
-     * Div element showing the title.
-     *
-     * @type {HTMLElement}
-     */
     #titleElement
-
-    /**
-     * Div element showing the value.
-     *
-     * @type {HTMLElement}
-     */
     #valueElement
-
-    /**
-     * Div element showing the percent.
-     *
-     * @type {HTMLElement}
-     */
     #percentElement
 
-    /**
-     * Create instance of class and attach open shadow-dom.
-     *
-     */
     constructor () {
       super()
 
@@ -113,12 +82,6 @@ customElements.define(
       }
     }
 
-    /**
-     * Trigger callback based on the name of the attribute.
-     *
-     * @param {string} name - The name of the attribute.
-     * @param {string} value - The value of the given attribute.
-     */
     #triggerCallback (name, value) {
       if (name === 'color') {
         this.#handleStateOfColor(value)
@@ -137,11 +100,6 @@ customElements.define(
       }
     }
 
-    /**
-     * Handle display of color-box with background-color.
-     *
-     * @param {string} hexColor - Value from color-attribute.
-     */
     #handleStateOfColor (hexColor) {
       if (this.hasAttribute('color')) {
         this.#colorBoxElement.classList.remove('hidden')
@@ -151,11 +109,6 @@ customElements.define(
       }
     }
 
-    /**
-     * Handle display of title.
-     *
-     * @param {string} title - Value from title-attribute.
-     */
     #handleStateOfTitle (title) {
       if (this.hasAttribute('title')) {
         this.#titleElement.classList.remove('hidden')
@@ -166,11 +119,6 @@ customElements.define(
       }
     }
 
-    /**
-     * Handle display of value.
-     *
-     * @param {string} value - Value from value-attribute.
-     */
     #handleStateOfValue (value) {
       if (this.hasAttribute('value')) {
         this.#valueElement.classList.remove('hidden')
@@ -181,11 +129,6 @@ customElements.define(
       }
     }
 
-    /**
-     * Handle display of percent.
-     *
-     * @param {string} value - Value from percent-attribute.
-     */
     #handleStateOfPercent (value) {
       if (this.hasAttribute('percent')) {
         this.#percentElement.classList.remove('hidden')

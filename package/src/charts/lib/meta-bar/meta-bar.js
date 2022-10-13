@@ -28,15 +28,7 @@ template.innerHTML = `
 
 customElements.define(
   'anjson-meta-bar',
-  /**
-   * Class to define custom element.
-   *
-   */
   class extends HTMLElement {
-    /**
-     * Create instance of class and attach open shadow-dom.
-     *
-     */
     constructor () {
       super()
 
