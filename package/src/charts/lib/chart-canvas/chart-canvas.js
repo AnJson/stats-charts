@@ -63,6 +63,11 @@ customElements.define(
       this.#setWidthAndHeightOnCanvas()
     }
 
+    #setWidthAndHeightOnCanvas () {
+      this.#canvas.setAttribute('width', this.offsetWidth)
+      this.#canvas.setAttribute('height', this.offsetHeight)
+    }
+
     /**
      * Draw pie-chart on the canvas.
      *
@@ -71,6 +76,25 @@ customElements.define(
     drawPieChart (statsCollection) {
       const { xAxisCenterPoint, yAxisCenterPoint } = this.#getCanvasMeta()
       const sum = statsCollection.getSumOfCollection()
+      this.#drawPieChartOnCanvas(statsCollection, xAxisCenterPoint, yAxisCenterPoint, sum)
+    }
+
+    /**
+     * Get canvas metadata, used to specify centerpoint for drawing circle(pie-chart).
+     *
+     * @returns {object} - Object with the canvas y- and x-axis center-points.
+     */
+    #getCanvasMeta () {
+      const yAxisCenterPoint = this.offsetHeight / 2
+      const xAxisCenterPoint = this.offsetWidth / 2
+
+      return {
+        yAxisCenterPoint,
+        xAxisCenterPoint
+      }
+    }
+
+    #drawPieChartOnCanvas (statsCollection, xCenterPoint, yCenterPoint, sum) {
       let currentAngle = 0
       const chartRadius = this.offsetHeight / 2
 
@@ -81,9 +105,9 @@ customElements.define(
 
         // Drawing an arc and a line to the center to differentiate the slice from the rest
         this.#canvasContext.beginPath()
-        this.#canvasContext.arc(xAxisCenterPoint, yAxisCenterPoint, chartRadius, currentAngle, currentAngle + sliceAngle)
+        this.#canvasContext.arc(xCenterPoint, yCenterPoint, chartRadius, currentAngle, currentAngle + sliceAngle)
         currentAngle += sliceAngle
-        this.#canvasContext.lineTo(xAxisCenterPoint, yAxisCenterPoint)
+        this.#canvasContext.lineTo(xCenterPoint, yCenterPoint)
 
         // Filling the slice with the corresponding color.
         this.#canvasContext.fillStyle = COLORS[index]
@@ -99,28 +123,15 @@ customElements.define(
      */
     drawBarChart (statsCollection, showAverage) {
       const { barWidth, gapWidth } = this.#getBarAndGapWidth(statsCollection)
-      let xPosition = 0
-
-      // Filling the Rectangle based on the input values
-      for (const [index, data] of statsCollection.collectionOfData.entries()) {
-        const barHeight = this.offsetHeight * (this.#getValue(data) / statsCollection.getMaximumValue())
-        this.#canvasContext.fillStyle = COLORS[index]
-        this.#canvasContext.fillRect(xPosition, (this.offsetHeight - barHeight), barWidth, barHeight)
-        xPosition += barWidth + gapWidth
-      }
+      this.#drawBarChartOnCanvas(statsCollection, barWidth, gapWidth)
 
       if (showAverage) {
-        const yIndexOfAverage = this.offsetHeight - (this.offsetHeight * (statsCollection.getAverageValue() / statsCollection.getMaximumValue()))
-        this.#canvasContext.lineWidth = 1
-        this.#canvasContext.moveTo(0, yIndexOfAverage)
-        this.#canvasContext.setLineDash([6, 6])
-        this.#canvasContext.lineTo(this.offsetWidth, yIndexOfAverage)
-        this.#canvasContext.stroke()
+        this.#drawAveragelineOnCanvas(statsCollection)
       }
     }
 
     /**
-     * Calculate width of bar and gap.
+     * Calculate width of bars and gaps based on number of bars and the width of the canvas.
      *
      * @param {StatsCollection} statsCollection - StatsCollection-object.
      * @returns {object} - Object with barWidth and gapWidth.
@@ -150,27 +161,27 @@ customElements.define(
       }
     }
 
-    /**
-     * Get canvas metadata.
-     *
-     * @returns {object} - Object with the canvas y- and x-axis center-points.
-     */
-    #getCanvasMeta () {
-      const yAxisCenterPoint = this.offsetHeight / 2
-      const xAxisCenterPoint = this.offsetWidth / 2
+    #drawBarChartOnCanvas (statsCollection, barWidth, gapWidth) {
+      let xPosition = 0
 
-      return {
-        yAxisCenterPoint,
-        xAxisCenterPoint
+      // Filling the Rectangle based on the input values
+      for (const [index, data] of statsCollection.collectionOfData.entries()) {
+        const barHeight = this.offsetHeight * (this.#getValue(data) / statsCollection.getMaximumValue())
+        this.#canvasContext.fillStyle = COLORS[index]
+        this.#canvasContext.fillRect(xPosition, (this.offsetHeight - barHeight), barWidth, barHeight)
+        xPosition += barWidth + gapWidth
       }
     }
 
-    /**
-     * Get the value from single data in collectionOfData.
-     *
-     * @param {number | object} data - Data from collectionOfData.
-     * @returns {number} - The value in the specific data.
-     */
+    #drawAveragelineOnCanvas (statsCollection) {
+      const yIndexOfAverage = this.offsetHeight - (this.offsetHeight * (statsCollection.getAverageValue() / statsCollection.getMaximumValue()))
+      this.#canvasContext.lineWidth = 1
+      this.#canvasContext.moveTo(0, yIndexOfAverage)
+      this.#canvasContext.setLineDash([6, 6])
+      this.#canvasContext.lineTo(this.offsetWidth, yIndexOfAverage)
+      this.#canvasContext.stroke()
+    }
+
     #getValue (data) {
       let value
       if (typeof data === 'object') {
@@ -180,15 +191,6 @@ customElements.define(
       }
 
       return value
-    }
-
-    /**
-     * Paint all elements in elementsOnDisplay-field on the canvas as long as there is any.
-     *
-     */
-    #setWidthAndHeightOnCanvas () {
-      this.#canvas.setAttribute('width', this.offsetWidth)
-      this.#canvas.setAttribute('height', this.offsetHeight)
     }
   }
 )
