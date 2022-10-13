@@ -20,7 +20,11 @@ export class Validator {
   }
 
   static validatePositiveNumber (data) {
-    return typeof data === 'number' && !Number.isNaN(data) && data >= 0
+    const isValid = typeof data === 'number' && !Number.isNaN(data) && data >= 0
+
+    if (!isValid) {
+      throw new Error('Expected a positive number.')
+    }
   }
 
   static validateValidStatsArray (datalist) {
@@ -38,6 +42,18 @@ export class Validator {
   }
 
   static validateObject (data) {
-    return typeof data === 'object' && !Array.isArray(data) && data !== null
+    const isValid = typeof data === 'object' && !Array.isArray(data) && data !== null
+
+    if (!isValid) {
+      throw new TypeError('Expected an object.')
+    }
+  }
+
+  static verifyElementInDOM (cssIdSelector) {
+    const domElement = document.querySelector(cssIdSelector)
+
+    if (!domElement) {
+      throw new Error('No element found in the DOM.')
+    }
   }
 }

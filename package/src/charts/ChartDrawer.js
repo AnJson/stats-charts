@@ -19,17 +19,6 @@ export class ChartDrawer {
    */
   #statsCollection
 
-  /**
-   * @type {Validator}
-   */
-  #validator = new Validator()
-
-  /**
-   * The constructor of the class.
-   *
-   * @param {number[] | object[]} listOfData - The list of data to draw charts from.
-   * @throws {TypeError} - If argument is not an array of objects with value-property holding a number or an array of numbers.
-   */
   constructor (listOfData) {
     this.#statsCollection = new StatsCollection(listOfData)
   }
@@ -37,7 +26,7 @@ export class ChartDrawer {
   /**
    * Append a pie-chart to the DOM by querying the DOM for element by id.
    *
-   * @param {string} elementId - Name of the id-attribut on DOM element to append chart in.
+   * @param {string} elementId - Name of the id-attribut on DOM element to append chart. (E.g 'the-element', not '#the-element).
    * @param {object} options - Options for the chart-drawing.
    * @throws {TypeError} - If options-argument is not an object.
    * @throws {Error} - If no DOM-element is found.
@@ -53,7 +42,7 @@ export class ChartDrawer {
   /**
    * Append a bar-chart to the DOM by querying the DOM for element by id.
    *
-   * @param {string} elementId - Name of the id-attribut on DOM element to append chart in.
+   * @param {string} elementId - Name of the id-attribut on DOM element to append chart in. (E.g 'the-element', not '#the-element).
    * @param {object} options - Options for the chart-drawing.
    * @throws {TypeError} - If options-argument is not an object.
    * @throws {Error} - If no DOM-element is found.
@@ -74,11 +63,8 @@ export class ChartDrawer {
    * @returns {Element} - The selected DOM-element if found.
    */
   #querySelectDOMElement (id) {
+    Validator.verifyElementInDOM(`#${id}`)
     const domElement = document.querySelector(`#${id}`)
-
-    if (!domElement) {
-      throw new Error('No element found in the DOM.')
-    }
 
     return domElement
   }
@@ -90,9 +76,8 @@ export class ChartDrawer {
    * @returns {object} - Options-object populated with entered options and default values.
    */
   #populateOptionsObject (options) {
-    if (!this.#validator.isObject(options)) {
-      throw new TypeError('Expected an object as option-argument.')
-    }
+    Validator.isObject(options)
+
     return {
       title: (options.title !== undefined) && (typeof options.title === 'boolean') ? options.title : false,
       average: (options.average !== undefined) && (typeof options.average === 'boolean') ? options.average : false,
