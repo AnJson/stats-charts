@@ -30,29 +30,17 @@ template.innerHTML = `
 
 customElements.define(
   'anjson-chart-canvas',
-  /**
-   * Class to define custom element.
-   *
-   */
   class extends HTMLElement {
     /**
-     * The canvas-element.
-     *
      * @type {HTMLElement}
      */
     #canvas
 
     /**
-     * The context-object.
-     *
      * @type {object}
      */
-    #ctx
+    #canvasContext
 
-    /**
-     * Create instance of class and attach open shadow-dom.
-     *
-     */
     constructor () {
       super()
 
@@ -60,13 +48,16 @@ customElements.define(
         template.content.cloneNode(true)
       )
 
+      this.#addShadowRootReferencesToClass()
+    }
+
+    #addShadowRootReferencesToClass () {
       this.#canvas = this.shadowRoot.querySelector('#canvas')
-      this.#ctx = this.#canvas.getContext('2d')
+      this.#canvasContext = this.#canvas.getContext('2d')
     }
 
     /**
      * Set the width and height-attributes for the canvas-element when mounted in DOM.
-     *
      */
     connectedCallback () {
       this.#setWidthAndHeightOnCanvas()
@@ -89,14 +80,14 @@ customElements.define(
         const sliceAngle = (this.#getValue(data) / sum) * 2 * Math.PI
 
         // Drawing an arc and a line to the center to differentiate the slice from the rest
-        this.#ctx.beginPath()
-        this.#ctx.arc(xAxisCenterPoint, yAxisCenterPoint, chartRadius, currentAngle, currentAngle + sliceAngle)
+        this.#canvasContext.beginPath()
+        this.#canvasContext.arc(xAxisCenterPoint, yAxisCenterPoint, chartRadius, currentAngle, currentAngle + sliceAngle)
         currentAngle += sliceAngle
-        this.#ctx.lineTo(xAxisCenterPoint, yAxisCenterPoint)
+        this.#canvasContext.lineTo(xAxisCenterPoint, yAxisCenterPoint)
 
         // Filling the slice with the corresponding color.
-        this.#ctx.fillStyle = COLORS[index]
-        this.#ctx.fill()
+        this.#canvasContext.fillStyle = COLORS[index]
+        this.#canvasContext.fill()
       }
     }
 
@@ -113,18 +104,18 @@ customElements.define(
       // Filling the Rectangle based on the input values
       for (const [index, data] of statsCollection.collectionOfData.entries()) {
         const barHeight = this.offsetHeight * (this.#getValue(data) / statsCollection.getMaximumValue())
-        this.#ctx.fillStyle = COLORS[index]
-        this.#ctx.fillRect(xPosition, (this.offsetHeight - barHeight), barWidth, barHeight)
+        this.#canvasContext.fillStyle = COLORS[index]
+        this.#canvasContext.fillRect(xPosition, (this.offsetHeight - barHeight), barWidth, barHeight)
         xPosition += barWidth + gapWidth
       }
 
       if (showAverage) {
         const yIndexOfAverage = this.offsetHeight - (this.offsetHeight * (statsCollection.getAverageValue() / statsCollection.getMaximumValue()))
-        this.#ctx.lineWidth = 1
-        this.#ctx.moveTo(0, yIndexOfAverage)
-        this.#ctx.setLineDash([6, 6])
-        this.#ctx.lineTo(this.offsetWidth, yIndexOfAverage)
-        this.#ctx.stroke()
+        this.#canvasContext.lineWidth = 1
+        this.#canvasContext.moveTo(0, yIndexOfAverage)
+        this.#canvasContext.setLineDash([6, 6])
+        this.#canvasContext.lineTo(this.offsetWidth, yIndexOfAverage)
+        this.#canvasContext.stroke()
       }
     }
 
