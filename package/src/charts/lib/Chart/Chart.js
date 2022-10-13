@@ -85,7 +85,7 @@ customElements.define(
 
     #appendMetaBar (statsCollection, options) {
       const metaBarElement = document.createElement('anjson-meta-bar')
-      const metaDataElements = this.#generateMetaDataElements(statsCollection.getCollectionOfDataWithPercent(), options)
+      const metaDataElements = this.#generateMetaDataElements(statsCollection.getDataWithPercent(), options)
 
       for (const element of metaDataElements) {
         metaBarElement.appendChild(element)
