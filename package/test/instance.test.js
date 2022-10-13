@@ -11,7 +11,7 @@ import { StatsCollection } from '../src/stats/StatsCollection'
 //  CONSTANTS
 // ------------------------------------------------------------------------------
 
-const ERROR_MESSAGE_NOT_VALID_COLLECTION = 'Expected argument to be an array of objects with value-property holding a positive number or an array of positive numbers.'
+const ERROR_MESSAGE_NOT_VALID_COLLECTION = 'Expected an array of objects with value-property holding a positive number or an array of positive numbers.'
 
 // ------------------------------------------------------------------------------
 //  instance

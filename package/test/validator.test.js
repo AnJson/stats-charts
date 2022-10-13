@@ -2,34 +2,42 @@
  * Tests for Validator module.
  *
  * @author Anders Jonsson
- * @version 1.0.0
+ * @version 2.0.0
  */
 
-import { Validator } from '../src/helpers/Validator'
+import { Validator } from '../src/helpers/Validator.js'
+// ------------------------------------------------------------------------------
+//  CONSTANTS
+// ------------------------------------------------------------------------------
+
+const ERROR_MESSAGE_NOT_VALID_OBJECT = 'Expected an object with value-property holding a positive number.'
+const ERROR_MESSAGE_NOT_POSITIVE_NUMBER = 'Expected a positive number.'
+const ERROR_MESSAGE_NOT_VALID_STATS_ARRAY = 'Expected an array of objects with value-property holding a positive number or an array of positive numbers.'
+const ERROR_MESSAGE_NOT_OBJECT = 'Expected an object.'
 
 // ------------------------------------------------------------------------------
 //  valid object
 // ------------------------------------------------------------------------------
 describe('valid object', () => {
-  describe('return value', () => {
-    it('should return true when argument is { value: 12 }', () => {
+  describe('exception', () => {
+    it(`should NOT throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_OBJECT}" when argument is { value: 12 }`, () => {
       const validator = new Validator()
-      expect(validator.isObjectWithPositiveNumberInValueProperty({ value: 12 })).toBe(true)
+      expect(() => validator.validateObjectWithPositiveNumberInValueProperty({ value: 12 })).not.toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_OBJECT))
     })
 
-    it('should return false when argument is 12', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_OBJECT}" when argument is 12`, () => {
       const validator = new Validator()
-      expect(validator.isObjectWithPositiveNumberInValueProperty(12)).toBe(false)
+      expect(() => validator.validateObjectWithPositiveNumberInValueProperty(12)).toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_OBJECT))
     })
 
-    it('should return false when argument is { value: "12" }', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_OBJECT}" when argument is { value: "12" }`, () => {
       const validator = new Validator()
-      expect(validator.isObjectWithPositiveNumberInValueProperty({ value: '12' })).toBe(false)
+      expect(() => validator.validateObjectWithPositiveNumberInValueProperty({ value: '12' })).toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_OBJECT))
     })
 
-    it('should return false when argument is { value: NaN }', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_OBJECT}" when argument is { value: NaN }`, () => {
       const validator = new Validator()
-      expect(validator.isObjectWithPositiveNumberInValueProperty({ value: NaN })).toBe(false)
+      expect(() => validator.validateObjectWithPositiveNumberInValueProperty({ value: NaN })).toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_OBJECT))
     })
   })
 })
@@ -38,30 +46,30 @@ describe('valid object', () => {
 //  positive number
 // ------------------------------------------------------------------------------
 describe('positive number', () => {
-  describe('return value', () => {
-    it('should return true when argument is 1', () => {
+  describe('exception', () => {
+    it(`should NOT throw Error with message "${ERROR_MESSAGE_NOT_POSITIVE_NUMBER}" when argument is 1`, () => {
       const validator = new Validator()
-      expect(validator.isPositiveNumber(1)).toBe(true)
+      expect(() => validator.validatePositiveNumber(1)).not.toThrow(new Error(ERROR_MESSAGE_NOT_POSITIVE_NUMBER))
     })
 
-    it('should return true when argument is 0', () => {
+    it(`should NOT throw Error with message "${ERROR_MESSAGE_NOT_POSITIVE_NUMBER}" when argument is 0`, () => {
       const validator = new Validator()
-      expect(validator.isPositiveNumber(0)).toBe(true)
+      expect(() => validator.validatePositiveNumber(0)).not.toThrow(new Error(ERROR_MESSAGE_NOT_POSITIVE_NUMBER))
     })
 
-    it('should return false when argument is -2', () => {
+    it(`should throw Error with message "${ERROR_MESSAGE_NOT_POSITIVE_NUMBER}" when argument is -2`, () => {
       const validator = new Validator()
-      expect(validator.isPositiveNumber(-2)).toBe(false)
+      expect(() => validator.validatePositiveNumber(-2)).toThrow(new Error(ERROR_MESSAGE_NOT_POSITIVE_NUMBER))
     })
 
-    it('should return false when argument is "10"', () => {
+    it(`should throw Error with message "${ERROR_MESSAGE_NOT_POSITIVE_NUMBER}" when argument is "10"`, () => {
       const validator = new Validator()
-      expect(validator.isPositiveNumber('10')).toBe(false)
+      expect(() => validator.validatePositiveNumber('10')).toThrow(new Error(ERROR_MESSAGE_NOT_POSITIVE_NUMBER))
     })
 
-    it('should return false when argument is NaN', () => {
+    it(`should throw Error with message "${ERROR_MESSAGE_NOT_POSITIVE_NUMBER}" when argument is NaN`, () => {
       const validator = new Validator()
-      expect(validator.isPositiveNumber(NaN)).toBe(false)
+      expect(() => validator.validatePositiveNumber(NaN)).toThrow(new Error(ERROR_MESSAGE_NOT_POSITIVE_NUMBER))
     })
   })
 })
@@ -70,45 +78,45 @@ describe('positive number', () => {
 //  valid stats array
 // ------------------------------------------------------------------------------
 describe('valid stats array', () => {
-  describe('return value', () => {
-    it('should return false when argument is [{ value: 25 }, 20, { value: 13 }]', () => {
+  describe('exception', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_STATS_ARRAY}" when argument is [{ value: 25 }, 20, { value: 13 }]`, () => {
       const validator = new Validator()
-      expect(validator.isValidStatsArray([{ value: 25 }, 20, { value: 13 }])).toBe(false)
+      expect(() => validator.validateValidStatsArray([{ value: 25 }, 20, { value: 13 }])).toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_STATS_ARRAY))
     })
 
-    it('should return false when argument is [{ name: "Ada" }, { value: 13 }]', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_STATS_ARRAY}" when argument is [{ name: "Ada" }, { value: 13 }]`, () => {
       const validator = new Validator()
-      expect(validator.isValidStatsArray([{ name: 'Ada' }, { value: 13 }])).toBe(false)
+      expect(() => validator.validateValidStatsArray([{ name: 'Ada' }, { value: 13 }])).toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_STATS_ARRAY))
     })
 
-    it('should return false when argument is [20, "13"]', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_STATS_ARRAY}" when argument is [20, "13"]`, () => {
       const validator = new Validator()
-      expect(validator.isValidStatsArray([20, '13'])).toBe(false)
+      expect(() => validator.validateValidStatsArray([20, '13'])).toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_STATS_ARRAY))
     })
 
-    it('should return false when argument is 20', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_STATS_ARRAY}" when argument is 20`, () => {
       const validator = new Validator()
-      expect(validator.isValidStatsArray(20)).toBe(false)
+      expect(() => validator.validateValidStatsArray(20)).toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_STATS_ARRAY))
     })
 
-    it('should return false when argument is [20, -10]', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_STATS_ARRAY}" when argument is [20, -10]`, () => {
       const validator = new Validator()
-      expect(validator.isValidStatsArray([20, -10])).toBe(false)
+      expect(() => validator.validateValidStatsArray([20, -10])).toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_STATS_ARRAY))
     })
 
-    it('should return false when argument is [{ value: 20 }, { value: -10 }]', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_STATS_ARRAY}" when argument is [{ value: 20 }, { value: -10 }]`, () => {
       const validator = new Validator()
-      expect(validator.isValidStatsArray([{ value: 20 }, { value: -10 }])).toBe(false)
+      expect(() => validator.validateValidStatsArray([{ value: 20 }, { value: -10 }])).toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_STATS_ARRAY))
     })
 
-    it('should return true when argument is [20, 100]', () => {
+    it(`should NOT throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_STATS_ARRAY}" when argument is [20, 100]`, () => {
       const validator = new Validator()
-      expect(validator.isValidStatsArray([20, 100])).toBe(true)
+      expect(() => validator.validateValidStatsArray([20, 100])).not.toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_STATS_ARRAY))
     })
 
-    it('should return true when argument is [{ value: 100 }, { value: 12 }]', () => {
+    it(`should NOT throw TypeError with message "${ERROR_MESSAGE_NOT_VALID_STATS_ARRAY}" when argument is [{ value: 100 }, { value: 12 }]`, () => {
       const validator = new Validator()
-      expect(validator.isValidStatsArray([{ value: 100 }, { value: 12 }])).toBe(true)
+      expect(() => validator.validateValidStatsArray([{ value: 100 }, { value: 12 }])).not.toThrow(new TypeError(ERROR_MESSAGE_NOT_VALID_STATS_ARRAY))
     })
   })
 })
@@ -117,25 +125,25 @@ describe('valid stats array', () => {
 //  object
 // ------------------------------------------------------------------------------
 describe('object', () => {
-  describe('return value', () => {
-    it('should return true when argument is {}', () => {
+  describe('exception', () => {
+    it(`should NOT throw TypeError with message "${ERROR_MESSAGE_NOT_OBJECT}" when argument is {}`, () => {
       const validator = new Validator()
-      expect(validator.isObject({})).toBe(true)
+      expect(() => validator.validateObject({})).not.toThrow(new TypeError(ERROR_MESSAGE_NOT_OBJECT))
     })
 
-    it('should return true when argument is { title: "a" }', () => {
+    it(`should NOT throw TypeError with message "${ERROR_MESSAGE_NOT_OBJECT}" when argument is { title: "a" }`, () => {
       const validator = new Validator()
-      expect(validator.isObject({ title: 'a' })).toBe(true)
+      expect(() => validator.validateObject({ title: 'a' })).not.toThrow(new TypeError(ERROR_MESSAGE_NOT_OBJECT))
     })
 
-    it('should return false when argument is [{ value: 13 }]', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_OBJECT}" when argument is [{ value: 13 }]`, () => {
       const validator = new Validator()
-      expect(validator.isObject([{ value: 13 }])).toBe(false)
+      expect(() => validator.validateObject([{ value: 13 }])).toThrow(new TypeError(ERROR_MESSAGE_NOT_OBJECT))
     })
 
-    it('should return false when argument is null', () => {
+    it(`should throw TypeError with message "${ERROR_MESSAGE_NOT_OBJECT}" when argument is null`, () => {
       const validator = new Validator()
-      expect(validator.isObject(null)).toBe(false)
+      expect(() => validator.validateObject(null)).toThrow(new TypeError(ERROR_MESSAGE_NOT_OBJECT))
     })
   })
 })

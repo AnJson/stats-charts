@@ -11,10 +11,10 @@ import { StatsCollection } from '../src/stats/StatsCollection'
 // ------------------------------------------------------------------------------
 describe('side-effects', () => {
   describe('get data', () => {
-    it('accessing collectionOfData-property should return a copy of the original data', () => {
+    it('accessing data-property should return a copy of the original data', () => {
       const data = [10, 12]
       const statsCollection = new StatsCollection(data)
-      expect(statsCollection.collectionOfData).not.toBe(data)
+      expect(statsCollection.data).not.toBe(data)
     })
   })
 })
