@@ -75,7 +75,7 @@ customElements.define(
      */
     drawPieChart (statsCollection) {
       const { xAxisCenterPoint, yAxisCenterPoint } = this.#getCanvasMeta()
-      const sum = statsCollection.getSumOfCollection()
+      const sum = statsCollection.getSum()
       this.#drawPieChartOnCanvas(statsCollection, xAxisCenterPoint, yAxisCenterPoint, sum)
     }
 
@@ -99,7 +99,7 @@ customElements.define(
       const chartRadius = this.offsetHeight / 2
 
       // Paint the pie-chart on the canvas.
-      for (const [index, data] of statsCollection.collectionOfData.entries()) {
+      for (const [index, data] of statsCollection.data.entries()) {
         // Calculating the angle the slice will take in the chart.
         const sliceAngle = (this.#getValue(data) / sum) * 2 * Math.PI
 
@@ -137,7 +137,7 @@ customElements.define(
      * @returns {object} - Object with barWidth and gapWidth.
      */
     #getBarAndGapWidth (statsCollection) {
-      const numberOfData = statsCollection.collectionOfData.length
+      const numberOfData = statsCollection.data.length
       const maximumBarWidth = 70
       const maximumGapWidth = 10
 
@@ -165,7 +165,7 @@ customElements.define(
       let xPosition = 0
 
       // Filling the Rectangle based on the input values
-      for (const [index, data] of statsCollection.collectionOfData.entries()) {
+      for (const [index, data] of statsCollection.data.entries()) {
         const barHeight = this.offsetHeight * (this.#getValue(data) / statsCollection.getMaximumValue())
         this.#canvasContext.fillStyle = COLORS[index]
         this.#canvasContext.fillRect(xPosition, (this.offsetHeight - barHeight), barWidth, barHeight)
