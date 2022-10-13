@@ -2,157 +2,142 @@
  * The StatsCollection class.
  *
  * @author Anders Jonsson
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 import { Validator } from '../helpers/Validator.js'
 
-/**
- * Wrapper class for stats-methods.
- *
- * @class StatsCollection
- */
 export class StatsCollection {
   /**
    * @type {number[] | object[]}
    */
-  #collectionOfData
+  #data
 
-  /**
-   * @type {Validator}
-   */
-  #validator = new Validator()
-
-  /**
-   * The constructor of the class.
-   *
-   * @param {number[] | object[]} listOfData - The list of data to get stats from.
-   */
   constructor (listOfData) {
-    this.collectionOfData = listOfData
+    this.data = listOfData
   }
 
   /**
-   * Get a copy of the collectionOfData.
+   * Get a copy of the data. (this.data !== this.#data).
    *
    * @readonly
-   * @returns {number[] | object[]} - Copy of the collectionOfData-field.
+   * @returns {number[] | object[]} - Copy of the data-field.
    */
-  get collectionOfData () {
-    const collectionOfDataCopy = []
-
-    for (const data of this.#collectionOfData) {
-      collectionOfDataCopy.push(this.#copyData(data))
-    }
-
-    return collectionOfDataCopy
+  get data () {
+    return this.#getCopy(this.#data)
   }
 
-  /**
-   * Set the collectionOfData-field.
-   *
-   * @param {number[] | object[]} listOfData - The list of data to get stats from.
-   * @throws {TypeError} - If argument is not an array of objects with value-property or an array of numbers.
-   */
-  set collectionOfData (listOfData) {
-    if (!this.#validator.isValidStatsArray(listOfData)) {
-      throw new TypeError(
-        'Expected argument to be an array of objects with value-property holding a positive number or an array of positive numbers.'
-      )
-    }
-
-    const listOfDataCopy = []
-
-    for (const data of listOfData) {
-      listOfDataCopy.push(this.#copyData(data))
-    }
-
-    this.#collectionOfData = listOfDataCopy
+  set data (listOfData) {
+    Validator.isValidStatsArray(listOfData)
+    this.#data = this.#getCopy(listOfData)
   }
 
-  /**
-   * Get the minimum value in the collectionOfData-field.
-   *
-   * @returns {number} - Collection of data from collectionOfData-field wich has the lowest value.
-   */
+  #getCopy (dataList) {
+    const dataCopy = []
+
+    for (const data of dataList) {
+      dataCopy.push(this.#copySingleData(data))
+    }
+
+    return dataCopy
+  }
+
+  #copySingleData (data) {
+    let dataCopy
+    try {
+      Validator.isObjectWithPositiveNumberInValueProperty(data)
+      dataCopy = { ...data }
+    } catch (error) {
+      dataCopy = data
+    }
+
+    return dataCopy
+  }
+
   getMinimumValue () {
-    const filteredOutMinimumValue = this.#collectionOfData.reduce(
+    return this.#filterOutMinimumValue()
+  }
+
+  #filterOutMinimumValue () {
+    return this.#data.reduce(
       (previousData, currentData) =>
         this.#getValue(previousData) < this.#getValue(currentData)
           ? this.#getValue(previousData)
           : this.#getValue(currentData)
     )
-
-    return filteredOutMinimumValue
   }
 
-  /**
-   * Get the maximum value in the collectionOfData-field.
-   *
-   * @returns {number} - Collection of data from collectionOfData-field wich has the highest value.
-   */
   getMaximumValue () {
-    const filteredOutMaximumValue = this.#collectionOfData.reduce(
+    return this.#filterOutMaximumValue()
+  }
+
+  #filterOutMaximumValue () {
+    return this.#data.reduce(
       (previousData, currentData) =>
         this.#getValue(previousData) > this.#getValue(currentData)
           ? this.#getValue(previousData)
           : this.#getValue(currentData)
     )
-
-    return filteredOutMaximumValue
   }
 
   /**
-   * Get the array of data that has the highest value in the collectionOfData-field.
+   * Get the array of data that has the highest value in the data-field.
    *
-   * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the highest value.
+   * @returns {object[] | number[]} - Collection of data from data-field wich has the highest value.
    */
   getDataWithMaximumValues () {
-    const collectiondataWithMaxValues = this.#collectionOfData.filter(
+    return this.#filterDataEqualsMaxValue()
+  }
+
+  #filterDataEqualsMaxValue () {
+    return this.#data.filter(
       (data) => this.#getValue(data) === this.getMaximumValue()
     )
-
-    return collectiondataWithMaxValues
   }
 
   /**
-   * Get the array of data that has the lowest value in the collectionOfData-field.
+   * Get the array of data that has the lowest value in the data-field.
    *
-   * @returns {object[] | number[]} - Collection of data from collectionOfData-field wich has the lowest value.
+   * @returns {object[] | number[]} - Collection of data from data-field wich has the lowest value.
    */
   getDataWithMinimumValues () {
-    const collectiondataWithMinValues = this.#collectionOfData.filter(
-      (data) => this.#getValue(data) === this.getMinimumValue()
-    )
-
-    return collectiondataWithMinValues
+    return this.#filterDataEqualsMinimumValue()
   }
 
-  /**
-   * Calculate the average-value from the collection of data.
-   *
-   * @returns {number} - The calculated average value.
-   */
+  #filterDataEqualsMinimumValue () {
+    return this.#data.filter(
+      (data) => this.#getValue(data) === this.getMinimumValue()
+    )
+  }
+
   getAverageValue () {
+    return this.#getCalculatedAverege()
+  }
+
+  #getCalculatedAverege () {
     let sum = 0
 
-    for (const data of this.#collectionOfData) {
+    for (const data of this.#data) {
       sum += this.#getValue(data)
     }
 
-    return sum / this.#collectionOfData.length
+    return sum / this.#data.length
   }
 
   /**
-   * Get a copy of the collectionOfData-field converted to objects with percent-property.
+   * Get a copy of the data-field converted to objects with percent-property.
    *
-   * @returns {object[]} - Data from collectionOfData-field converted to objects with percent-property.
+   * @returns {object[]} - Data from data-field converted to objects with percent-property.
    */
-  getCollectionOfDataWithPercent () {
-    const percentCollection = []
-    const sumOfCollection = this.getSumOfCollection()
+  getDataWithPercent () {
+    return this.#mapDataToObjectsWithPercent()
+  }
 
-    for (const data of this.#collectionOfData) {
+  #mapDataToObjectsWithPercent () {
+    const percentCollection = []
+    const sumOfCollection = this.getSum()
+
+    for (const data of this.#data) {
       const dataObject = this.#convertToObjectWithPercentProperty(data)
       dataObject.percent = dataObject.value / sumOfCollection
       percentCollection.push(dataObject)
@@ -161,49 +146,24 @@ export class StatsCollection {
     return percentCollection
   }
 
-  /**
-   * Get the sum of the values in the collectionOfData-field.
-   *
-   * @returns {number} - The sum of the values in the collectionOfData-field.
-   */
-  getSumOfCollection () {
-    const sum = this.#collectionOfData.reduce(
+  getSum () {
+    return this.#getCalculatedSum()
+  }
+
+  #getCalculatedSum () {
+    return this.#data.reduce(
       (previousData, currentData) => previousData + this.#getValue(currentData),
       0
     )
-
-    return sum
   }
 
-  /**
-   * Get a copy from single data in the collectionOfData-field.
-   *
-   * @param {number | object} data - Data to copy from the collectionOfData-field.
-   * @returns {number | object} - A copy of the data in collectionOfData-field.
-   */
-  #copyData (data) {
-    let dataCopy
-
-    if (this.#validator.isObjectWithPositiveNumberInValueProperty(data)) {
-      dataCopy = { ...data }
-    } else {
-      dataCopy = data
-    }
-
-    return dataCopy
-  }
-
-  /**
-   * Create an object with at least a value- and percent-property.
-   *
-   * @param {object | number} data - Single data from collectionOfData-field.
-   * @returns {object} - Object with at least a value- and percent-property.
-   */
   #convertToObjectWithPercentProperty (data) {
     let dataObjectWithPercentProperty
-    if (this.#validator.isObjectWithPositiveNumberInValueProperty(data)) {
+
+    try {
+      Validator.validateObjectWithPositiveNumberInValueProperty(data)
       dataObjectWithPercentProperty = { ...data, percent: undefined }
-    } else {
+    } catch (error) {
       dataObjectWithPercentProperty = { value: data, percent: undefined }
     }
 
@@ -211,17 +171,17 @@ export class StatsCollection {
   }
 
   /**
-   * Get a single value from the collectionOfData-field even if it is an object or a number.
+   * Get a single value from the data-field even if it is an object or a number.
    *
-   * @param {object | number} data - Data from the collectionOfData-field to get the value from.
-   * @returns {number} - The sum of the values in the collectionOfData-field.
+   * @param {object | number} data - Data from the data-field to get the value from.
+   * @returns {number} - The sum of the values in the data-field.
    */
   #getValue (data) {
     let value
-
-    if (this.#validator.isObjectWithPositiveNumberInValueProperty(data)) {
+    try {
+      Validator.isObjectWithPositiveNumberInValueProperty(data)
       value = data.value
-    } else {
+    } catch (error) {
       value = data
     }
 
