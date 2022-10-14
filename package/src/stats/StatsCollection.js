@@ -65,6 +65,7 @@ export class StatsCollection {
         this.#getValue(previousData) < this.#getValue(currentData)
           ? this.#getValue(previousData)
           : this.#getValue(currentData)
+      , this.#getValue(this.#data[0])
     )
   }
 
@@ -78,6 +79,7 @@ export class StatsCollection {
         this.#getValue(previousData) > this.#getValue(currentData)
           ? this.#getValue(previousData)
           : this.#getValue(currentData)
+      , this.#getValue(this.#data[0])
     )
   }
 
