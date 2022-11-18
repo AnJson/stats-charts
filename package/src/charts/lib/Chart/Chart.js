@@ -99,7 +99,7 @@ customElements.define(
 
       for (const [index, data] of dataCollection.entries()) {
         const metaDataElement = document.createElement('anjson-meta-data')
-        metaDataElement.setAttribute('color', COLORS[index])
+        metaDataElement.setAttribute('color', COLORS[index % COLORS.length])
         options.title && data.title ? metaDataElement.setAttribute('title', data.title) : metaDataElement.removeAttribute('title')
         options.value && data.value ? metaDataElement.setAttribute('value', data.value) : metaDataElement.removeAttribute('value')
         options.percent && data.percent ? metaDataElement.setAttribute('percent', data.percent) : metaDataElement.removeAttribute('percent')
